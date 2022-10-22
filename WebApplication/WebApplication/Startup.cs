@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplication.Utils;
 
 namespace WebApplication
 {
@@ -27,17 +28,20 @@ namespace WebApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var rootFolder = Directory.GetCurrentDirectory();
-            string[] stringQueries = Directory.GetFiles(rootFolder + @"\Queries", "*.xml", SearchOption.AllDirectories);
-            services.AddControllers();
-            // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
             IAppSettings appSettings = appSettingsSection.Get<AppSettings>();
+            var rootFolder = Directory.GetCurrentDirectory();
+            string[] stringQueries = Directory.GetFiles(rootFolder + @"\" + appSettings.Queries_Folder, " *.xml", SearchOption.AllDirectories);
+            services.AddControllers();
+            // configure strongly typed settings objects
+         
              var key = System.Text.Encoding.ASCII.GetBytes(appSettings.Secret);
             var serviceProvider = services.BuildServiceProvider();
             var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
             _logger = loggerFactory.CreateLogger("IPDMobileService");
             services.AddSingleton<IDao>(new Dao(appSettings.Database, stringQueries));
+            var messagePath = rootFolder + @"\" + appSettings.Message_Path;
+            services.AddSingleton<IMessage>(new Message(messagePath));
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
