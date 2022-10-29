@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "G:\\Project\\WebApi\\WebApplication\\WebApplication\\WebApplication.csproj": {}
+    "C:\\Users\\DucLeThien\\source\\repos\\vovanthinh0584\\WebApi\\WebApplication\\WebApplication\\WebApplication.csproj": {}
   },
   "projects": {
-    "G:\\Project\\WebApi\\WebApplication\\WebApplication\\WebApplication.csproj": {
+    "C:\\Users\\DucLeThien\\source\\repos\\vovanthinh0584\\WebApi\\WebApplication\\WebApplication\\WebApplication.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\Project\\WebApi\\WebApplication\\WebApplication\\WebApplication.csproj",
+        "projectUniqueName": "C:\\Users\\DucLeThien\\source\\repos\\vovanthinh0584\\WebApi\\WebApplication\\WebApplication\\WebApplication.csproj",
         "projectName": "WebApplication",
-        "projectPath": "G:\\Project\\WebApi\\WebApplication\\WebApplication\\WebApplication.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "G:\\Project\\WebApi\\WebApplication\\WebApplication\\obj\\",
+        "projectPath": "C:\\Users\\DucLeThien\\source\\repos\\vovanthinh0584\\WebApi\\WebApplication\\WebApplication\\WebApplication.csproj",
+        "packagesPath": "C:\\Users\\DucLeThien\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\DucLeThien\\source\\repos\\vovanthinh0584\\WebApi\\WebApplication\\WebApplication\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\DucLeThien\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,7 +22,8 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/adjuno/90dea07c-4b2f-42cb-b75f-8e61e2469cb7/_packaging/EVCargoTech%40Release/nuget/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
@@ -51,6 +49,10 @@
               "target": "Package",
               "version": "[3.1.14, )"
             },
+            "StackExchange.Redis": {
+              "target": "Package",
+              "version": "[2.6.70, )"
+            },
             "System.Data.SqlClient": {
               "target": "Package",
               "version": "[4.8.4, )"
@@ -66,12 +68,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[3.1.25, 3.1.25]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -80,7 +76,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }
