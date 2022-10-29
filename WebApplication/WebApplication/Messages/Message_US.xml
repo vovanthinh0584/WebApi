@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Messages>
-  <Message id="MBL00047">Dịch vụ đã trả KQ- SID - HÓA ĐƠN không thể xóa. </Message>
+	<Message id="MBL00001">Đăng nhập thành công!</Message>
+	<Message id="MBL00002">Tên truy cập hoặc mật khẩu không hợp lệ!</Message>
  </Messages>
 
