@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplication.Services;
 using WebApplication.Utils;
 
 namespace WebApplication
@@ -28,25 +29,16 @@ namespace WebApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var appSettingsSection = Configuration.GetSection("AppSettings");
-            IAppSettings appSettings = appSettingsSection.Get<AppSettings>();
-            var rootFolder = Directory.GetCurrentDirectory();
-            string[] stringQueries = Directory.GetFiles(rootFolder + @"\" + appSettings.Queries_Folder, " *.xml", SearchOption.AllDirectories);
-            services.AddControllers();
-            // configure strongly typed settings objects
-         
-             var key = System.Text.Encoding.ASCII.GetBytes(appSettings.Secret);
+            var Secret = new AppSettings(Configuration).Secret;
             var serviceProvider = services.BuildServiceProvider();
             var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
             _logger = loggerFactory.CreateLogger("IPDMobileService");
-            services.AddSingleton<IDao>(new Dao(appSettings.Database, stringQueries));
-            var messagePath = rootFolder + @"\" + appSettings.Message_Path;
-            services.AddSingleton<IMessage>(new Message(messagePath));
+            services.AddControllers();
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })                  
+            })
          .AddJwtBearer(x =>
          {
              x.RequireHttpsMetadata = false;
@@ -54,12 +46,16 @@ namespace WebApplication
              x.TokenValidationParameters = new TokenValidationParameters
              {
                  ValidateIssuerSigningKey = true,
-                 IssuerSigningKey = new SymmetricSecurityKey(key),
+                 // IssuerSigningKey = new SymmetricSecurityKey(Secret),
                  ValidateIssuer = false,
                  ValidateAudience = false,
                  ClockSkew = TimeSpan.Zero
              };
          });
+            services.AddSingleton<IAppSettings, AppSettings>();
+            services.AddSingleton<IDao, Dao>();
+            services.AddSingleton<IMessage, Message>();
+            services.AddSingleton<ICaptionService, CaptionService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

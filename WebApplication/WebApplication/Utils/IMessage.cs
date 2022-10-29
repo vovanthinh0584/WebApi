@@ -8,6 +8,6 @@ namespace WebApplication.Utils
     public interface IMessage
     {
         void LoadStatements();
-        string GetMessage(string id);
+        string GetMessage(string id,string lang);
     }
 }

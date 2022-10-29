@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Statements>
+  <Statement id="GetListCaptionOfForm">
+	  SELECT Caption,FormName,Field FROM SYS_tblFormCaption where FormName=@FormName and Lang=@Lang
+  </Statement>
+  
+</Statements>

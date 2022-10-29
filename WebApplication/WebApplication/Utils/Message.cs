@@ -7,31 +7,39 @@ namespace WebApplication.Utils
     {
         private IDictionary<string, string> _xmlDictionary;
         private string _path;
-        public Message(string path)
+        private string _rootFolder;
+        IAppSettings _appSettings;
+        public Message(IAppSettings appSettings)
         {
-            _path = path;
+            _appSettings = appSettings;
+            _rootFolder = appSettings.RootFolder;
         }
 
         public void LoadStatements()
         {
-            StatementCollection statements = null;
-            System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(StatementCollection));
-
-            using (StreamReader reader = new StreamReader(_path))
+            foreach (var message in _appSettings.ListMessages)
             {
-                statements = (StatementCollection)serializer.Deserialize(reader);
-            }
-            _xmlDictionary = new Dictionary<string, string>();
-            foreach (var item in statements.Statements)
-            {
-                _xmlDictionary[item.Id] = item.Text?.Trim();
-            }
-			var x = _xmlDictionary;
+                StatementCollection statements = null;
+                System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(StatementCollection));
+                var path =Path.Combine(_rootFolder,message.Path,".xml");
+                using (StreamReader reader = new StreamReader(path))
+                {
+                    statements = (StatementCollection)serializer.Deserialize(reader);
+                }
+                _xmlDictionary = new Dictionary<string, string>();
+                foreach (var item in statements.Statements)
+                {
+                    var code = item.Id + message.Code;
+                    _xmlDictionary[code] = item.Text?.Trim();
+                }
 
-		}
-        public string GetMessage(string id)
+            }
+
+        }
+        public string GetMessage(string id,string lang)
         {
-            return _xmlDictionary[id];
+            var code = id + lang;
+            return _xmlDictionary[code];
         }
     }
     [System.Diagnostics.DebuggerDisplay("{Id}")]

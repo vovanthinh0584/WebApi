@@ -13,12 +13,31 @@ namespace WebApplication
 	{
 		private IDictionary<string, string> _xmlDictionary;
 		private string _connectionString;
+		IAppSettings _appSettings;
+		private List<string> _daoPath;
 
-		public Dao(string ConnectionString, string[] sqlFiles) : base()
+		public Dao(IAppSettings appSettings) : base()
 		{
-			_connectionString = ConnectionString;
-			LoadStatements(sqlFiles);
+			_appSettings = appSettings;
+			_connectionString = _appSettings.Database;
+			_daoPath=GetFileOfFolder();
+			LoadStatements(_daoPath);
 		}
+		private List<string>  GetFileOfFolder()
+        {
+			DirectoryInfo d = new DirectoryInfo(Path.Combine(_appSettings.RootFolder,_appSettings.Queries_Folder)); //Assuming Test is your Folder
+
+			FileInfo[] Files = d.GetFiles("*.xml"); //Getting Text files
+			List<string> listPath = new List<string>();
+
+			foreach (FileInfo file in Files)
+			{
+				var path=Path.Combine(_appSettings.RootFolder,_appSettings.Queries_Folder, Path.GetFileName(file.Name));
+				listPath.Add(path);
+
+			}
+			return listPath;
+        }
 
 		public IDbConnection CreateConnection()
 		{
@@ -151,7 +170,7 @@ namespace WebApplication
 		{
 			return new SqlDataAdapter(cmd as SqlCommand);
 		}
-		private void LoadStatements(string[] files)
+		private void LoadStatements(List<string> files)
 		{
 			_xmlDictionary = new Dictionary<string, string>();
 
@@ -208,18 +227,5 @@ namespace WebApplication
 		public SqlStatement[] Statements { get; set; }
 	}
 
-	public class His1
-	{
-
-	}
-
-	public class His2
-	{
-
-	}
-
-	public class Core
-	{
-
-	}
+	
 }
