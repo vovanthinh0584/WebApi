@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using WebApplication.Services;
 using WebApplication.Utils;
@@ -29,7 +30,7 @@ namespace WebApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var Secret = new AppSettings(Configuration).Secret;
+            var key = Encoding.ASCII.GetBytes(new AppSettings(Configuration).Secret);
             var serviceProvider = services.BuildServiceProvider();
             var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
             _logger = loggerFactory.CreateLogger("IPDMobileService");
@@ -46,7 +47,7 @@ namespace WebApplication
              x.TokenValidationParameters = new TokenValidationParameters
              {
                  ValidateIssuerSigningKey = true,
-                 // IssuerSigningKey = new SymmetricSecurityKey(Secret),
+                 IssuerSigningKey = new SymmetricSecurityKey(key),
                  ValidateIssuer = false,
                  ValidateAudience = false,
                  ClockSkew = TimeSpan.Zero
@@ -55,7 +56,7 @@ namespace WebApplication
             services.AddSingleton<IAppSettings, AppSettings>();
             services.AddSingleton<IDao, Dao>();
             services.AddSingleton<IMessage, Message>();
-            services.AddSingleton<ICaptionService, CaptionService>();
+            services.AddSingleton<IAccountService, AccountService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

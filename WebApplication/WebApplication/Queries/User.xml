@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Statements>
+	<Statement id="GetListCaptionOfForm">
+		select ControlName as Caption,ControlCaption as Field,Lang from SYS_tblFormOption where FormName=@FormName and Lang=@Lang
+	</Statement>
+	<Statement id="GetListBussiness">
+		SELECT BusinessUnitID,BusinessUnitName	FROM BS_BusinessUnits
+	</Statement>
+	<Statement id="GetUser">
+		SELECT * FROM UMS_tblUserAccount where UserID =@UserID and Password=@Password and BUID=@BusinessUnitID
+	</Statement>
+</Statements>
