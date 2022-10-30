@@ -13,6 +13,8 @@ namespace WebApplication.Utils
         {
             _appSettings = appSettings;
             _rootFolder = appSettings.RootFolder;
+            _xmlDictionary= new Dictionary<string, string>();
+            LoadStatements();
         }
 
         public void LoadStatements()
@@ -21,12 +23,12 @@ namespace WebApplication.Utils
             {
                 StatementCollection statements = null;
                 System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(StatementCollection));
-                var path =Path.Combine(_rootFolder,message.Path,".xml");
+                var path =Path.Combine(_rootFolder,message.Path);
                 using (StreamReader reader = new StreamReader(path))
                 {
                     statements = (StatementCollection)serializer.Deserialize(reader);
                 }
-                _xmlDictionary = new Dictionary<string, string>();
+                //_xmlDictionary = new Dictionary<string, string>();
                 foreach (var item in statements.Statements)
                 {
                     var code = item.Id + message.Code;

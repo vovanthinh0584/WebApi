@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplication.Models;
@@ -31,20 +32,42 @@ namespace WebApplication.Services
             IEnumerable<object> listBussiness = _dao.Query<object>(sql, null);
             return listBussiness;
         }
+        private List<string> GetPermission(DataTable dataTable)
+        {
+            var listPermission = new List<string>();
+            var listRows = dataTable.Rows;
+            for (int i = 0; i < listRows.Count; i++)
+            {
+                var row = listRows[0];
+                listPermission.Add(row["FunctionID"].ToString());
+            }
+            return listPermission;
+        }
         public Boolean Login(string statementSql, User user)
         {
             string sql = _dao.GetSqlStatement(statementSql);
-            var listUsers = _dao.Query<User>(sql, user);
+            object userParam = new
+            {
+                UserID = user.UserID
+            };
+            var listUsers = _dao.Query<User>(sql, userParam);
+            // exec  'MOBILE_01', 'SAFVIET',  'vi-VN'
+            IDictionary<string, object> param = new Dictionary<string, object>();
+            param["UserId"] = user.UserID;
+            param["BUID"] = user.BusinessUnitID;
+            param["Lang"] = user.Language;
+            var permissons = _dao.ExecuteSP("UMS_tblUserAccount_Login", param);
             Boolean isCheckLogin = false;
-            if (listUsers != null)
+            if (listUsers.Count()>0)
             {
                 var detail = listUsers.FirstOrDefault();
                 string passwordEncrypt = Encrypting.AesEncrypt(user.Password, user.Password, user.Password);
-
-                if (passwordEncrypt == detail.Password)
-                {
-                    isCheckLogin = true;
-                }
+                isCheckLogin = true;
+                user.Permissions = GetPermission(permissons);
+                //if (passwordEncrypt == detail.Password)
+                //{
+                //    isCheckLogin = true;
+                //}
             }
             if (isCheckLogin == true)
             {

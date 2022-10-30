@@ -18,6 +18,6 @@ namespace WebApplication.Models
         public DateTime SessionExpires { get; set; }
         
 
-        public List<object> Permissions { get; set; }
+        public List<string> Permissions { get; set; }
     }
 }

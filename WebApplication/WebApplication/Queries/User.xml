@@ -7,6 +7,6 @@
 		SELECT BusinessUnitID,BusinessUnitName	FROM BS_BusinessUnits
 	</Statement>
 	<Statement id="GetUser">
-		SELECT * FROM UMS_tblUserAccount where UserID =@UserID and Password=@Password and BUID=@BusinessUnitID
+		SELECT * FROM UMS_tblUserAccount where UserID =@UserID 
 	</Statement>
 </Statements>
