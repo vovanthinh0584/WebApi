@@ -57,6 +57,7 @@ namespace WebApplication
             services.AddSingleton<IDao, Dao>();
             services.AddSingleton<IMessage, Message>();
             services.AddSingleton<IAccountService, AccountService>();
+            services.AddSingleton<IInputRequestService, InputRequestService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

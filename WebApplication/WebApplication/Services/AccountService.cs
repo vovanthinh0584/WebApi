@@ -58,13 +58,5 @@ namespace WebApplication.Services
             }
             return true;
         }
-
-    }
-    public interface IAccountService
-    {
-        IEnumerable<CaptionDTO> GetListCaptions(string statementSql, object param);
-        IEnumerable<object> GetListBussiness(string statementSql);
-        Boolean Login(string statementSql, User param);
-
     }
 }

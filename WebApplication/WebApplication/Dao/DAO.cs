@@ -1,5 +1,4 @@
 ﻿using Dapper;
-
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -23,6 +22,7 @@ namespace WebApplication
 			_daoPath=GetFileOfFolder();
 			LoadStatements(_daoPath);
 		}
+
 		private List<string>  GetFileOfFolder()
         {
 			DirectoryInfo d = new DirectoryInfo(Path.Combine(_appSettings.RootFolder,_appSettings.Queries_Folder)); //Assuming Test is your Folder
@@ -62,6 +62,7 @@ namespace WebApplication
 
 			return Query<T>(sql, param);
 		}
+
 		public DataTable StatementQuery(string statement, IDictionary<string, object> _param)
 		{
 			string sql = string.Empty;
@@ -115,6 +116,7 @@ namespace WebApplication
 			}
 			return lst;
 		}
+
 		public int Execute(string sql, object param)
 		{
 			int rowAffected = 0;
@@ -134,6 +136,7 @@ namespace WebApplication
 			}
 			return rowAffected;
 		}
+
 		public DataTable ExecuteSP(string ProcName, IDictionary<string, object> _param)
 		{
 			return Query(ProcName, _param, CommandType.StoredProcedure);
@@ -143,6 +146,7 @@ namespace WebApplication
 		{
 			return GetSQL(name);
 		}
+
 		public DataTable Query(string sql, IDictionary<string, object> param, CommandType commandType)
 		{
 			DataTable dt = new DataTable();
@@ -166,10 +170,12 @@ namespace WebApplication
 			}
 			return dt;
 		}
+
 		private DbDataAdapter CreateAdapter(DbCommand cmd)
 		{
 			return new SqlDataAdapter(cmd as SqlCommand);
 		}
+
 		private void LoadStatements(List<string> files)
 		{
 			_xmlDictionary = new Dictionary<string, string>();
