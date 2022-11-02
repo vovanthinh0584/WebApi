@@ -34,7 +34,7 @@ namespace WebApplication
             var key = Encoding.ASCII.GetBytes(new AppSettings(Configuration).Secret);
             var serviceProvider = services.BuildServiceProvider();
             var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
-            _logger = loggerFactory.CreateLogger("IPDMobileService");
+            _logger = loggerFactory.CreateLogger("IMobileService");
             services.AddControllers();
             services.AddAuthentication(x =>
             {
