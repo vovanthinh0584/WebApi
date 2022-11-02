@@ -20,10 +20,10 @@ namespace WebApplication.Services
             _message = message;
             _logger = loggerFactory.CreateLogger<AccountService>();
         }
-        public IEnumerable<CaptionDTO> GetListCaptions(string statementSql, object param)
+        public IEnumerable<object> GetListCaptions(string statementSql, object param)
         {
             string sql = _dao.GetSqlStatement(statementSql);
-            IEnumerable<CaptionDTO> listCaptions = _dao.Query<CaptionDTO>(sql, param);
+            IEnumerable<object> listCaptions = _dao.Query<object>(sql, param);
             return listCaptions;
         }
         public IEnumerable<object> GetListBussiness(string statementSql)
@@ -51,7 +51,7 @@ namespace WebApplication.Services
                 UserID = user.UserID
             };
             var listUsers = _dao.Query<User>(sql, userParam);
-            // exec  'MOBILE_01', 'SAFVIET',  'vi-VN'
+           
             IDictionary<string, object> param = new Dictionary<string, object>();
             param["UserId"] = user.UserID;
             param["BUID"] = user.BusinessUnitID;
@@ -85,7 +85,7 @@ namespace WebApplication.Services
     }
     public interface IAccountService
     {
-        IEnumerable<CaptionDTO> GetListCaptions(string statementSql, object param);
+        IEnumerable<object> GetListCaptions(string statementSql, object param);
         IEnumerable<object> GetListBussiness(string statementSql);
         Boolean Login(string statementSql, User param);
 
