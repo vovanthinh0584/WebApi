@@ -53,7 +53,6 @@ namespace WebApplication.Services
                 RequestedContent = body.RequestedContent,
                 Reason = body.Reason,
                 BUID = buId,
-                FinishedDate = DateTime.Now,// 
                 ErrorMessage = string.Empty
             };
 
