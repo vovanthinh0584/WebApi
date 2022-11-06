@@ -59,6 +59,7 @@ namespace WebApplication
             services.AddSingleton<IMessage, Message>();
             services.AddSingleton<IAccountService, AccountService>();
             services.AddSingleton<IInputRequestService, InputRequestService>();
+            services.AddSingleton<IInputDeviceParameterService, InputDeviceParameterService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

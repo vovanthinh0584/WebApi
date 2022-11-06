@@ -65,6 +65,8 @@ namespace WebApplication
 					//}
 
 					//ApiService.SetInfo(controller.User,controller.Request);
+
+					result = new UnauthorizedResult();
 				}
 			}
 
