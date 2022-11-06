@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Statements>
+	<Statement id="GetListAsset">
+		select AssetID, AssetName from FA_tblAssets where Stop = 0
+	</Statement>
+	<Statement id="GetListOperating">
+		select OperatingId, OperatingName from FA_tblOperatingParameters
+	</Statement>
+	<Statement id="GetListUM">
+		select UMID, UMName from FA_tblUnitsOfMearsure where Stop = 0
+	</Statement>
+</Statements>

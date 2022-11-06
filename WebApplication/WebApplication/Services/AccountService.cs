@@ -38,7 +38,7 @@ namespace WebApplication.Services
             var listRows = dataTable.Rows;
             for (int i = 0; i < listRows.Count; i++)
             {
-                var row = listRows[0];
+                var row = listRows[i];
                 listPermission.Add(row["FunctionID"].ToString());
             }
             return listPermission;
