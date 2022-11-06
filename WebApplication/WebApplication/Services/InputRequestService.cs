@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebApplication.Common;
+using WebApplication.Models;
 using WebApplication.Models.RequestBody.InputRequest;
 using WebApplication.Utils;
 
@@ -58,7 +59,7 @@ namespace WebApplication.Services
 
             int result = _dao.ExecuteSP(StoreProduceName.InputRequest.Insert, paras);
 
-            if(result > 0)
+            if (result > 0)
             {
                 return string.Empty;
             }
@@ -66,7 +67,36 @@ namespace WebApplication.Services
             return "Cannot create Voucher No";
         }
 
+        private async Task<IEnumerable<WorkShopSummary>> QueryWorkShopsAsync(string buiId)
+        {
+            object param = new
+            {
+                BUID = buiId
+            };
+
+            string sql = _dao.GetSqlStatement("QueryWorkShops");
+            IEnumerable<WorkShopSummary> workShops = _dao.Query<WorkShopSummary>(sql, param);
+            return workShops;
+        }
+
+        private async Task<IEnumerable<LocationSummary>> QueryLocationsAsync(string buiId)
+        {
+            object param = new
+            {
+                BUID = buiId
+            };
+
+            string sql = _dao.GetSqlStatement("QueryLocations");
+            IEnumerable<LocationSummary> locations = _dao.Query<LocationSummary>(sql, param);
+            return locations;
+        }
+
         Task<string> IInputRequestService.CreateInputRequestAsync(CreateRequestInputBody body)
             => this.CreateInputRequestAsync(body);
+
+        Task<IEnumerable<WorkShopSummary>> IInputRequestService.QueryWorkShopsAsync(string BuId)
+        => this.QueryWorkShopsAsync(BuId);
+        Task<IEnumerable<LocationSummary>> IInputRequestService.QueryLocationsAsync(string BuId)
+       => this.QueryLocationsAsync(BuId);
     }
 }
