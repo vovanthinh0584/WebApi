@@ -48,8 +48,8 @@ namespace WebApplication.Controllers
         [HttpGet("QueryWorkShops")]
         public async Task<IActionResult> QueryWorkShopsAsync()
         {
-            string BUID = this.User.Claims.FirstOrDefault(c => c.Type == "BusinessUnitID").Value;
-            //string BUID = "SAFVIET";
+            //string BUID = this.User.Claims.FirstOrDefault(c => c.Type == "BusinessUnitID").Value;
+            string BUID = "SAFVIET";
             IEnumerable<WorkShopSummary> workShops = await this._inputRequestService.QueryWorkShopsAsync(BUID);
 
             return base.Ok(workShops);
@@ -59,8 +59,8 @@ namespace WebApplication.Controllers
         [HttpGet("QueryLocations")]
         public async Task<IActionResult> QueryLocations()
         {
-            string BUID = this.User.Claims.FirstOrDefault(c => c.Type == "BusinessUnitID").Value;
-            //string BUID = "SAFVIET";
+            //string BUID = this.User.Claims.FirstOrDefault(c => c.Type == "BusinessUnitID").Value;
+            string BUID = "SAFVIET";
             IEnumerable<LocationSummary> locations = await this._inputRequestService.QueryLocationsAsync(BUID);
 
             return base.Ok(locations);
