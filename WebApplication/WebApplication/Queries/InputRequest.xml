@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Statements>
+	<Statement id="QueryWorkShops">
+		SELECT WorkshopId, WorkshopName 
+		FROM FA_tblWorkshops 
+		WHERE stop = 0 and BUID = @BUID
+	</Statement>
+	<Statement id="QueryLocations">
+		SELECT LocationID, LocationName 
+		FROM FA_tblLocations 
+		WHERE stop = 0 and BUID = @BUID
+	</Statement>
+</Statements>

@@ -2,5 +2,6 @@
 <Messages>
 	<Message id="MBL00001">Đăng nhập thành công!</Message>
 	<Message id="MBL00002">Tên truy cập hoặc mật khẩu không hợp lệ!</Message>
+	<Message id="MBL00003">Tạo Input Request thành công!</Message>
  </Messages>
 

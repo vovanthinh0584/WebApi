@@ -32,13 +32,13 @@ namespace WebApplication.Controllers
             if (body is null)
             {
                 return base.BadRequest("Have not body value");
-            }    
+            }
 
             string m = await _inputRequestService.CreateInputRequestAsync(body);
 
             if (string.IsNullOrEmpty(m))
             {
-                return new ObjectResult(ReturnOk(_message.GetMessage("MBL00002", lang)));
+                return new ObjectResult(ReturnOk(_message.GetMessage("MBL00003", lang)));
             }
 
             return base.BadRequest(m);
