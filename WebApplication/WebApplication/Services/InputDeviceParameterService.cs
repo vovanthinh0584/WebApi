@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using WebApplication.Common;
 using WebApplication.Models;
@@ -61,6 +62,11 @@ namespace WebApplication.Services
             string sql = _dao.GetSqlStatement(statementSql);
             IEnumerable<object> listCaptions = _dao.Query<object>(sql, param);
             return listCaptions;
+        }
+        public DataTable GetParameter(string statementSql,IDictionary<string, object> param)
+        {
+            var parameter = _dao.ExecuteSP(statementSql, param);
+            return parameter;
         }
     }
 }

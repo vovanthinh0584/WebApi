@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using WebApplication.Models;
 using WebApplication.Models.RequestBody.InputRequest;
@@ -12,5 +13,6 @@ namespace WebApplication.Services
         IEnumerable<object> GetListAsset(string statementSql, object param);
 
         IEnumerable<object> GetListUM(string statementSql, object param);
+        DataTable GetParameter(string statementSql, IDictionary<string, object> param);
     }
 }
