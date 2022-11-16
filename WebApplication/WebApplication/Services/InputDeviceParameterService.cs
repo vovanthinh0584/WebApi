@@ -29,7 +29,7 @@ namespace WebApplication.Services
                 UserId = body.UserId,
                 InputDate = body.InputDate,
                 AssetId = body.AssetId,
-                OperatingId = body.OperatingID,
+                OperatingId = body.OperatingId,
                 UMID = body.UMID,
                 Value = body.Value,
                 Note=body.Note,

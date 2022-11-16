@@ -30,12 +30,7 @@ namespace WebApplication.Controllers
         public virtual IActionResult  CreateInputDeviceParameter([FromBody] InputDeviceParameterDTO body)
         {
            
-            if (body is null)
-            {
-                return base.BadRequest("Have not body value");
-            }
-            
-            string m = _inputDeviceParameterService.CreateInputDeviceParameter("FA_tblInputAssetOperating_Mobile_Save",body);
+            string m = _inputDeviceParameterService.CreateInputDeviceParameter("FA_tblInputAssetOperating_Mobile_Save", body);
 
             return new OkObjectResult(ReturnOk(m));
         }
@@ -56,12 +51,12 @@ namespace WebApplication.Controllers
             param["UserId"] = body.UserId;
             param["BUID"] = body.BUID;
             param["Lang"] = body.Lang;
-            param["AssetId"] = "COMPRESSOR_0001";
+            param["AssetId"] = body.AssetId;
             param["InputDate"] = body.InputDate;
             
             var dt = _inputDeviceParameterService.GetParameter("FA_tblInputAssetOperating_Mobile_GetParameter", param);
 
-            IEnumerable<TestDemo> result = dt.AsEnumerable().Select(x => new TestDemo()
+            IEnumerable<InputDeviceParameterDTO> result = dt.AsEnumerable().Select(x => new InputDeviceParameterDTO()
             {
                 AssetId = x.Field<string>("AssetId"),
                 InputDate = x.Field<DateTime>("InputDate"),
@@ -75,46 +70,6 @@ namespace WebApplication.Controllers
             return new OkObjectResult(ReturnOk(result));
         }
     }
-    public class TestDemo
-    {
-        [JsonProperty("AssetId")]
-        public string AssetId { get; set; }
-
-        [JsonProperty("InputDate")]
-        public DateTime InputDate { get; set; }
-
-        [JsonProperty("OperatingId")]
-        public string OperatingId { get; set; }
-
-        [JsonProperty("OperatingName")]
-        public string OperatingName { get; set; } = null;
-
-        [JsonProperty("UMID")]
-        public string UMID { get; set; }
-
-        [JsonProperty("Value")]
-        public decimal Value { get; set; }
-
-        [JsonProperty("Note")]
-        public string Note { get; set; } = null;
-
-        [JsonProperty("RecordID")]
-        public Guid RecordID { get; set; }
-
-        
-        //[JsonProperty("CreatedOn")]
-        //public string CreatedOn { get; set; }
-
-        //[JsonProperty("CreatedBy")]
-        //public string CreatedBy { get; set; }
-
-
-        //[JsonProperty("ModifiedOn")]
-        //public string ModifiedOn { get; set; }
-
-        //[JsonProperty("ModifiedBy")]
-        //public string ModifiedBy { get; set; }
-
-    }
+    
     
 }

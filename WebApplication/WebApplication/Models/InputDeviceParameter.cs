@@ -7,7 +7,7 @@ namespace WebApplication.Models
         public string AssetId
         { get; set; }
         public DateTime InputDate { get; set; }
-        public string OperatingID
+        public string OperatingId
         { get; set; }
         public string UMID { get; set; }
         public decimal Value
@@ -16,7 +16,7 @@ namespace WebApplication.Models
 
         { get; set; }
 
-        public string RecordID
+        public Guid RecordID
 
         { get; set; }
 
