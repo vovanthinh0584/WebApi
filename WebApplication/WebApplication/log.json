@@ -1,0 +1,62 @@
+{
+  "Serilog": {
+    "Using": [ "Serilog.Sinks.Console", "Serilog.Sinks.RollingFile" ],
+    "MinimumLevel": "Debug",
+    "WriteTo": [
+      { "Name": "Console" },
+      {
+        "Name": "Logger",
+        "Args": {
+          "configureLogger": {
+            "Filter": [
+              {
+                "Name": "ByExcluding",
+                "Args": {
+                  "expression": "StartsWith(SourceContext, 'SqlLog')"
+                }
+              }
+            ],
+            "WriteTo": [
+              {
+                "Name": "RollingFile",
+                "Args": {
+                  "pathFormat": "logs/log-{Date}.txt",
+                  "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{MachineName}/{ThreadId}] [{Level:u3}] {Message:lj}{NewLine}{Exception}"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "Name": "Logger",
+        "Args": {
+          "configureLogger": {
+            "Filter": [
+              {
+                "Name": "ByIncludingOnly",
+                "Args": {
+                  "expression": "StartsWith(SourceContext, 'SqlLog')"
+                }
+              }
+            ],
+            "WriteTo": [
+              {
+                "Name": "RollingFile",
+                "Args": {
+                  "pathFormat": "logs/sqllog-{Date}.txt",
+                  "restrictedToMinimumLevel": "Error",
+                  "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{ThreadId}] [{Level:u3}] {Message:lj}{NewLine}{Exception}"
+                }
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "Enrich": [ "FromLogContext", "WithMachineName", "WithThreadId" ],
+    "Properties": {
+      "Application": "HIX"
+    }
+  }
+}
