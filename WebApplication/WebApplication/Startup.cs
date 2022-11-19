@@ -77,6 +77,7 @@ namespace WebApplication
             services.AddSingleton<IAccountService, AccountService>();
             services.AddSingleton<IInputRequestService, InputRequestService>();
             services.AddSingleton<IInputDeviceParameterService, InputDeviceParameterService>();
+            services.AddSingleton<IGetTaskService, GetTaskService>();
         }
 
         public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env, ILoggerFactory logger)

@@ -43,6 +43,7 @@ namespace WebApplication.Controllers
             var listUM = _inputDeviceParameterService.GetListUM("GetListUM", null);
             return new OkObjectResult(ReturnOk(new { listAsset, listOperating, listUM }));
         }
+
         [AllowAnonymous]
         [HttpPost("GetParameter")]
         public virtual IActionResult GetParameter([FromBody] InputDeviceParameterDTO body)
