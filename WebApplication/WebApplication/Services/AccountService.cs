@@ -43,14 +43,14 @@ namespace WebApplication.Services
             }
             return listPermission;
         }
-        public Boolean Login(string statementSql, User user)
+        public Boolean Login(string statementSql, UserDTO user)
         {
             string sql = _dao.GetSqlStatement(statementSql);
             object userParam = new
             {
                 UserID = user.UserID
             };
-            var listUsers = _dao.Query<User>(sql, userParam);
+            var listUsers = _dao.Query<UserDTO>(sql, userParam);
            
             IDictionary<string, object> param = new Dictionary<string, object>();
             param["UserId"] = user.UserID;

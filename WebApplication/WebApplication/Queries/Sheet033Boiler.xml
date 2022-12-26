@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Statements>
+	<Statement id="QueryWorks">
+		select
+		CForm.AssetId,work.WorkNo WorkerId,work.WorkDate,work.AreaId,CForm.ShiftId,work.WorkNo from SAFVIET_tblWorks  work left join FA_tblCheckingForm CForm on CForm.CheckingNum=work.WorkNo where work.WorkType = '3'
+		and work.BUID = @BUID
+	</Statement>
+	<Statement id="QueryShiftsAttime">
+		select Id,Attime from FA_tblShifts_Attime where Stop = 0 and ShiftID = @ShiftID and BUID = @BUID
+	</Statement>
+	<Statement id="UpdateCheckingList">
+		update FA_tblCheckingFormList set Result_Yes=@Value where Id=@Id
+	</Statement>
+</Statements>

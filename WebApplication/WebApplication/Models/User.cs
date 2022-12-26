@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebApplication.Models
 {
-    public class User
+    public class UserDTO
     {
         public string UserID { get; set; }
         public string Password { get; set; }

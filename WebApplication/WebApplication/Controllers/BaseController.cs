@@ -9,9 +9,10 @@ using WebApplication.Models;
 
 namespace WebApplication.Controllers
 {
-    [Authorize]
+    
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
     [LogoutToken]
     public class BaseController : ControllerBase
     {

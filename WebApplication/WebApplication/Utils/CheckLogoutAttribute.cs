@@ -29,18 +29,12 @@ namespace WebApplication
 
 		public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
 		{
-			if (context.Filters.OfType<IAllowAnonymousFilter>().Any())
-				await next();
-			else
-			{
-				// execute any code before the action executes
-				IActionResult result = AuthorizationCheck(context);
+			IActionResult result = AuthorizationCheck(context);
 
-				if (result != null)
-					context.Result = result;
-				else
-					await next();
-			}
+			if (result != null)
+				context.Result = result;
+			else
+				await next();
 
 			// execute any code after the action executes
 		}

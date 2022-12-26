@@ -43,7 +43,7 @@ namespace WebApplication.Controllers
         }
         [AllowAnonymous]
         [HttpPost("login")]
-        public virtual IActionResult Login([FromBody] User user)
+        public virtual IActionResult Login([FromBody] UserDTO user)
         {
             var keyIv = (user.UserID + "0000000000000000").Substring(0, 16);
             user.Password = Encrypting.AesDecrypt(user.Password, Encoding.UTF8.GetBytes(keyIv), Encoding.UTF8.GetBytes(keyIv), Encoding.UTF8);
@@ -60,6 +60,7 @@ namespace WebApplication.Controllers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
+                    new Claim(ClaimTypes.NameIdentifier, user.UserID),
                     new Claim(ClaimTypes.Name, user.UserID),
                     new Claim("Language", user.Language),
                     new Claim("BusinessUnitID",user.BusinessUnitID),

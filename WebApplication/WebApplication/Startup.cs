@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -71,6 +72,32 @@ namespace WebApplication
                  ClockSkew = TimeSpan.Zero
              };
          });
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true; // Default is true, make it false
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            services.AddSession();
+            services.AddMvc().AddSessionStateTempDataProvider();
+            // Enable response compression
+            services.Configure<GzipCompressionProviderOptions>(options =>
+            {
+                options.Level = System.IO.Compression.CompressionLevel.Fastest;
+
+            }).AddResponseCompression(options =>
+            {
+                options.EnableForHttps = true;
+                options.Providers.Add<GzipCompressionProvider>();
+            });
+
+            //needed for NLog.Web
+            //call this in case you need aspnet-user-authtype/aspnet-user-identity
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddHttpContextAccessor();
+
+   
             services.AddSingleton<IAppSettings, AppSettings>();
             services.AddSingleton<IDao, Dao>();
             services.AddSingleton<IMessage, Message>();
@@ -78,11 +105,11 @@ namespace WebApplication
             services.AddSingleton<IInputRequestService, InputRequestService>();
             services.AddSingleton<IInputDeviceParameterService, InputDeviceParameterService>();
             services.AddSingleton<IGetTaskService, GetTaskService>();
+            services.AddSingleton<ISheet033BoilerService,Sheet033BoilerService>();
         }
 
-        public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env, ILoggerFactory logger)
+      public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env, ILoggerFactory logger)
         {
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -92,7 +119,7 @@ namespace WebApplication
                 app.UseHsts();
             }
             app.UseAuthentication();
-           // app.UseSession();
+            app.UseSession();
             app.UseCookiePolicy();
 
             //  app.UseHttpsRedirection();
@@ -100,13 +127,11 @@ namespace WebApplication
             app.ConfigureExceptionHandler(_logger);
 
             // Enable compression
-           // app.UseResponseCompression();
-            app.UseCors(
-                options => options.SetIsOriginAllowed(x => _ = true)
+            app.UseResponseCompression();
+            app.UseCors(builder => builder.SetIsOriginAllowed(_ => true)
                 .AllowAnyMethod()
                 .AllowAnyHeader()
-                .AllowCredentials()
-            );
+                .AllowCredentials());
             //app.UseCors(PolicyOrigins);
 
             app.UseDefaultFiles(new DefaultFilesOptions { DefaultFileNames = new List<string> { "index.html" } });
