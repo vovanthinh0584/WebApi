@@ -13,6 +13,7 @@ using WebApplication.Utils;
 
 namespace WebApplication.Controllers
 {
+
     public  class Sheet033BoilerController : BaseController
     {
         IMessage _message;
@@ -27,7 +28,7 @@ namespace WebApplication.Controllers
         }
        
 
-        [AllowAnonymous]
+       
         [HttpPost("GetWorks")]
         public virtual IActionResult GetWorks([FromBody] WorkDTO body)
         {
@@ -40,7 +41,7 @@ namespace WebApplication.Controllers
             return new OkObjectResult(ReturnOk(dt));
         }
 
-        [AllowAnonymous]
+       
         [HttpPost("GetShiftsAttime")]
         public virtual IActionResult GetListShiftsAttime([FromBody] ShiftsAttimeDTO body)
         {
@@ -55,7 +56,7 @@ namespace WebApplication.Controllers
 
            
         }
-        [AllowAnonymous]
+       
         [HttpPost("GetCheckinglist")]
         public virtual IActionResult GetCheckinglist([FromBody] CheckinglistDTO body)
         {
@@ -69,10 +70,8 @@ namespace WebApplication.Controllers
             var dt = _sheet033BoilerService.GetCheckinglist("SAFVIET_tblWorks_Mobile_GetCheckinglist", param);
             return new OkObjectResult(ReturnOk(dt));
 
-
         }
 
-        [AllowAnonymous]
         [HttpPost("UpdateCheckinglist")]
         public virtual IActionResult UpdateCheckinglist([FromBody] List<CheckinglistDTO> body)
         {

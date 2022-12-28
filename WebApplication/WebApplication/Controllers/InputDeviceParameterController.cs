@@ -13,6 +13,7 @@ using WebApplication.Utils;
 
 namespace WebApplication.Controllers
 {
+
     public  class InputDeviceParameterController : BaseController
     {
         IMessage _message;

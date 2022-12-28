@@ -11,7 +11,8 @@ using WebApplication.Utils;
 
 namespace WebApplication.Controllers
 {
-    public sealed class InputRequestController : BaseController
+
+    public class InputRequestController : BaseController
     {
         public IMessage _message;
         public IAppSettings _appSettings;
@@ -24,7 +25,7 @@ namespace WebApplication.Controllers
             _inputRequestService = inputRequestService ?? throw new ArgumentNullException(nameof(inputRequestService));
         }
 
-        [AllowAnonymous]
+        
         [HttpPost]
         public async Task<IActionResult> CreateInputRequestAsync([FromBody] CreateRequestInputBody body)
         {
@@ -44,7 +45,7 @@ namespace WebApplication.Controllers
             return base.BadRequest(m);
         }
 
-        [AllowAnonymous]
+        
         [HttpGet("QueryWorkShops")]
         public async Task<IActionResult> QueryWorkShopsAsync()
         {
@@ -55,7 +56,7 @@ namespace WebApplication.Controllers
             return base.Ok(workShops);
         }
 
-        [AllowAnonymous]
+        
         [HttpGet("QueryLocations")]
         public async Task<IActionResult> QueryLocations()
         {

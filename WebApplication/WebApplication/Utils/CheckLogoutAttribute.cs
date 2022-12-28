@@ -17,24 +17,28 @@ namespace WebApplication
 
 	public class LogoutTokenFilter : IAsyncActionFilter
 	{
-      
-      
-        public LogoutTokenFilter()
+		
+		public LogoutTokenFilter()
 		{
-           
-           
+			
 
 
-        }
+		}
 
 		public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
 		{
-			IActionResult result = AuthorizationCheck(context);
-
-			if (result != null)
-				context.Result = result;
-			else
+			if (context.Filters.OfType<IAllowAnonymousFilter>().Any())
 				await next();
+			else
+			{
+				// execute any code before the action executes
+				IActionResult result = AuthorizationCheck(context);
+
+				if (result != null)
+					context.Result = result;
+				else
+					await next();
+			}
 
 			// execute any code after the action executes
 		}
@@ -45,22 +49,12 @@ namespace WebApplication
 
 			ControllerBase controller = context.Controller as ControllerBase;
 
-			//bool hasAllowAnonymous = context.ActionDescriptor.EndpointMetadata.Any(em => em.GetType() == typeof(AllowAnonymousAttribute));
-
+		
 			if (controller?.User != null)
 			{
 				if (controller.User.Claims.Count() > 0)
 				{
-					//var currentToken = Util.GetCurrentToken(controller.Request);
-
-					//if (_Context.IsTokenBlackList(currentToken))
-					//{
-					//	result = new UnauthorizedResult();
-					//}
-
-					//ApiService.SetInfo(controller.User,controller.Request);
-
-					result = new UnauthorizedResult();
+					
 				}
 			}
 

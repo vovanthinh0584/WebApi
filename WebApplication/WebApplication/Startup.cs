@@ -119,6 +119,7 @@ namespace WebApplication
                 app.UseHsts();
             }
             app.UseAuthentication();
+            app.UseAuthorization();
             app.UseSession();
             app.UseCookiePolicy();
 

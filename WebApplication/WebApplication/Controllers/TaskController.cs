@@ -8,15 +8,16 @@ using WebApplication.Services;
 
 namespace WebApplication.Controllers
 {
-    public class GetTaskController : BaseController
+   
+    public class TaskController : BaseController
     {
         IGetTaskService getTaskService;
-        public GetTaskController(IGetTaskService getTaskService)
+        public TaskController(IGetTaskService getTaskService)
         {
             this.getTaskService = getTaskService ?? throw new ArgumentException(nameof(getTaskService));
         }
 
-        [AllowAnonymous]
+       
         [HttpGet]
         public virtual IActionResult QueryGetTask()
         {
@@ -31,7 +32,7 @@ namespace WebApplication.Controllers
             IEnumerable<QueryGetTaskSummary> GetTasks = getTaskService.QueryGetTask("FA_tblWorkMaintain_GetDateByUserID", param);
             return new OkObjectResult(ReturnOk(GetTasks));
         }
-        [AllowAnonymous]
+       
         [HttpPost]
         public virtual IActionResult CreateGetTask(CreateGetTaskBody body)
         {
