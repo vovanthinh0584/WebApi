@@ -46,11 +46,23 @@ namespace WebApplication.Services
         }
         public void  UpdateCheckinglist(string statementSql, List<CheckinglistDTO> checkinglist)
         {
-            foreach(var item in checkinglist)
+            using (var connection =_dao.CreateConnection())
             {
-                var param = new {Id=item.Id,Value=Convert.ToBoolean(item.Value), BUID = item.BUID};
-                var result = _dao.StatementExecute(statementSql, param);
+                connection.Open();
+
+                using (var transaction = connection.BeginTransaction())
+                {
+                    foreach (var item in checkinglist)
+                    {
+                        var param = new { Id = item.Id, Value = item.Value, BUID = item.BUID };
+                        var result = _dao.StatementExecute(statementSql, param);
+                    }
+
+                    transaction.Commit();
+                }
             }
+           
+               
             
         }
 
