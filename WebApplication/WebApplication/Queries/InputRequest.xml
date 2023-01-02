@@ -10,4 +10,12 @@
 		FROM FA_tblLocations 
 		WHERE stop = 0 and BUID = @BUID
 	</Statement>
+	<Statement id="QueryListZone">
+		select ZoneId, ZoneName from BS_tblZoneList where stop = 0
+	</Statement>
+	<Statement id="ComFirmRequest">
+		update FA_tblMTNRequest set Status=2 where MTNRequestNum=@MTNRequestNum
+	</Statement>
+
+
 </Statements>

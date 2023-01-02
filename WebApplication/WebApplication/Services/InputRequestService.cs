@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using WebApplication.Common;
 using WebApplication.Models;
@@ -20,40 +21,21 @@ namespace WebApplication.Services
 
         private async Task<string> CreateInputRequestAsync(CreateRequestInputBody body)
         {
-            string userId = "MOBILE_01";
-            string buId = "BUID";
-            string lang = "vi-VN";
-
-            if (string.IsNullOrEmpty(buId))
-            {
-                throw new ArgumentNullException(nameof(buId));
-            }
-
-            if (string.IsNullOrEmpty(userId))
-            {
-                throw new ArgumentNullException(nameof(userId));
-            }
-
-            if (string.IsNullOrEmpty(lang))
-            {
-                throw new ArgumentNullException(nameof(lang));
-            }
-
-            if (body is null)
-            {
-                throw new ArgumentNullException(nameof(buId));
-            }
-
+          
             object paras = new
             {
-                UserId = userId,
-                Lang = lang,
-                WorkshopId = body.WorkshopId,
-                LocationId = body.LocationId,
-                WorkerName = body.WorkerName,
-                RequestedContent = body.RequestedContent,
-                Reason = body.Reason,
-                BUID = buId,
+                UserId = body.UserId,
+                BUID = body.BUID,
+                Lang = body.Lang,
+                ZoneId = body.ZoneId,
+                Requester = body.Requester,
+                ReceiveName = body.ReceiveName,
+                Equipment = body.Equipment,
+                Descriptionrequest = body.Descriptionrequest,
+                Repair = body.Repair,
+                Projectsupporting = body.Descriptionrequest,
+                Housekeeping = body.Housekeeping,
+                Others = body.Others,
                 ErrorMessage = string.Empty
             };
 
@@ -65,6 +47,14 @@ namespace WebApplication.Services
             }
 
             return "Cannot create Voucher No";
+        }
+
+        public object GetAdminMTN()
+        {
+
+            var result = _dao.ExecuteSingleSP("Sys_GetAdminMTN", null);
+
+            return result;
         }
 
         private async Task<IEnumerable<WorkShopSummary>> QueryWorkShopsAsync(string buiId)
@@ -90,7 +80,23 @@ namespace WebApplication.Services
             IEnumerable<LocationSummary> locations = _dao.Query<LocationSummary>(sql, param);
             return locations;
         }
-
+        public DataTable GetListRequest(string statementSql, IDictionary<string, object> param)
+        {
+            var result = _dao.ExecuteSP(statementSql, param);
+            return result;
+        }
+        public IEnumerable<ZoneList> QueryListZone()
+        {
+            string sql = _dao.GetSqlStatement("QueryListZone");
+            IEnumerable<ZoneList> zoneList = _dao.Query<ZoneList>(sql, null);
+            return zoneList;
+        }
+        public int ComfirmRequest(string sqlString,object param)
+        {
+            var sql = _dao.GetSqlStatement(sqlString);
+            var result = _dao.ExecuteSingleSP(sql,param);
+            return result;
+        }
         Task<string> IInputRequestService.CreateInputRequestAsync(CreateRequestInputBody body)
             => this.CreateInputRequestAsync(body);
 

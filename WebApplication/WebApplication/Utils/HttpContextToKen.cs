@@ -14,6 +14,7 @@ namespace WebApplication.Utils
             IDictionary<string, object> result = new Dictionary<string, object>();
             result["BUID"] = user.Claims.ToList()[3].Value;
             result["LANG"] = user.Claims.ToList()[2].Value;
+            result["USERID"] = user.Claims.ToList()[0].Value;
 
             return result;
         }

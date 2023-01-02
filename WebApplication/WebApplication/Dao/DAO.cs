@@ -136,6 +136,15 @@ namespace WebApplication
 			}
 			return rowAffected;
 		}
+		public dynamic ExecuteSingleSP(string sql, object param)
+		{
+			dynamic result;
+			using (IDbConnection db = CreateConnection())
+			{
+				result = db.QuerySingle<dynamic>(sql, param, null, 1000, CommandType.StoredProcedure);
+			}
+			return result;
+		}
 
 		public DataTable ExecuteSP(string ProcName, IDictionary<string, object> _param)
 		{

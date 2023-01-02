@@ -29,7 +29,9 @@ namespace WebApplication.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateInputRequestAsync([FromBody] CreateRequestInputBody body)
         {
-            string lang = "vi-VN";
+            var tokenCurrent = HttpContextToKen.GetHttpContextToKen(this.User);
+            body.BUID = tokenCurrent["BUID"].ToString();
+            body.Lang = tokenCurrent["Lang"].ToString();
             if (body is null)
             {
                 return base.BadRequest("Have not body value");
@@ -39,7 +41,7 @@ namespace WebApplication.Controllers
 
             if (string.IsNullOrEmpty(m))
             {
-                return new ObjectResult(ReturnOk(_message.GetMessage("MBL00003", lang)));
+                return new ObjectResult(ReturnOk(_message.GetMessage("MBL00003", body.Lang)));
             }
 
             return base.BadRequest(m);
@@ -56,7 +58,18 @@ namespace WebApplication.Controllers
             return base.Ok(workShops);
         }
 
-        
+        [HttpGet("GetRequests")]
+        public async Task<IActionResult> GetRequests()
+        {
+            var token = HttpContextToKen.GetHttpContextToKen(this.User);
+             IDictionary<string, object> param = new Dictionary<string, object>();
+            param["UserId"] = token["USERID"];
+            param["BUID"] = token["BUID"];
+            param["Lang"] = token["LANG"];
+            var result = this._inputRequestService.GetListRequest("FA_tblMTNRequest_Mobile_GetRequest", param);
+            return new OkObjectResult(ReturnOk(result));
+        }
+    
         [HttpGet("QueryLocations")]
         public async Task<IActionResult> QueryLocations()
         {
@@ -66,5 +79,25 @@ namespace WebApplication.Controllers
 
             return base.Ok(locations);
         }
+        [HttpGet("QueryListZone")]
+        public async Task<IActionResult> QueryListZone()
+        {
+           IEnumerable<ZoneList> zoneList =  this._inputRequestService.QueryListZone();
+            return new OkObjectResult(ReturnOk(zoneList));
+        }
+        [HttpPost("ComFirmRequest")]
+        public async Task<IActionResult> ComFirmRequest(string MTNRequestNum)
+        {
+            object param = new  { MTNRequestNum= MTNRequestNum };
+            var result = this._inputRequestService.ComfirmRequest("ComFirmRequest", param);
+            return new OkObjectResult(ReturnOk(result));
+        }
+        [HttpGet("AdminMTN")]
+        public async Task<IActionResult> GetAdminMTN()
+        {
+           var adminMTN = this._inputRequestService.GetAdminMTN();
+            return new OkObjectResult(ReturnOk(adminMTN));
+        }
+
     }
 }

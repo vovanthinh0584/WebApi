@@ -48,5 +48,8 @@ namespace WebApplication
 		int ExecuteSP(string sql, object param);
 		DataTable ExecuteSP(string ProcName, IDictionary<string, object> param);
 		IDbConnection CreateConnection();
-	}
+
+        dynamic ExecuteSingleSP(string sql, object param);
+
+    }
 }
