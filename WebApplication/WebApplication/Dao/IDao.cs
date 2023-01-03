@@ -51,5 +51,7 @@ namespace WebApplication
 
         dynamic ExecuteSingleSP(string sql, object param);
 
+        T SingeOrDeFault<T>(string sql, object param);
+
     }
 }

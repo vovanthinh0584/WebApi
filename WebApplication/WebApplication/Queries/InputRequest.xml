@@ -16,6 +16,11 @@
 	<Statement id="ComFirmRequest">
 		update FA_tblMTNRequest set Status=2 where MTNRequestNum=@MTNRequestNum
 	</Statement>
-
+	<Statement id="GetSysAdmin">
+		SELECT UserName
+		from UMS_tblUserAccount
+		where UserID = 'HUAN'
+	</Statement>
+	
 
 </Statements>

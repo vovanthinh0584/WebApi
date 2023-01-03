@@ -33,26 +33,35 @@ namespace WebApplication.Services
                 Equipment = body.Equipment,
                 Descriptionrequest = body.Descriptionrequest,
                 Repair = body.Repair,
-                Projectsupporting = body.Descriptionrequest,
+                Projectsupporting = body.Projectsupporting,
                 Housekeeping = body.Housekeeping,
                 Others = body.Others,
                 ErrorMessage = string.Empty
             };
-
-            int result = _dao.ExecuteSP(StoreProduceName.InputRequest.Insert, paras);
-
-            if (result > 0)
+            try
             {
-                return string.Empty;
+                int result = _dao.ExecuteSP("FA_tblMTNRequest_Mobile_Send", paras);
+                if (result > 0)
+                {
+                    return string.Empty;
+                }
             }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+           
+
+           
 
             return "Cannot create Voucher No";
         }
 
-        public object GetAdminMTN()
+        public SystemAdmin GetAdminMTN(object para)
         {
 
-            var result = _dao.ExecuteSingleSP("Sys_GetAdminMTN", null);
+            var result = _dao.SingeOrDeFault<SystemAdmin>("GetSysAdmin", para);
 
             return result;
         }
@@ -93,8 +102,7 @@ namespace WebApplication.Services
         }
         public int ComfirmRequest(string sqlString,object param)
         {
-            var sql = _dao.GetSqlStatement(sqlString);
-            var result = _dao.ExecuteSingleSP(sql,param);
+            var result = _dao.StatementExecute(sqlString, param);
             return result;
         }
         Task<string> IInputRequestService.CreateInputRequestAsync(CreateRequestInputBody body)

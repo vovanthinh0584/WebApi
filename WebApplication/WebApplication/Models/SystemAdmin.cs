@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 namespace WebApplication.Models
 {
   
-    public class SystemAdmin
+    public class CaptionDTO
     {
-        public string UserName { get; set; }
-        
+        public string FormName { get; set; }
+        public string Caption { get; set; }
+        public string Field { get; set; }
     }
 }

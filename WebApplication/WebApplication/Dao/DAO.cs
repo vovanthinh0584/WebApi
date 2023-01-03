@@ -145,6 +145,18 @@ namespace WebApplication
 			}
 			return result;
 		}
+		public T SingeOrDeFault<T>(string sql, object param)
+		{
+			T result;
+			var sqlStatement=GetSqlStatement(sql);
+			using (IDbConnection db = CreateConnection())
+			{
+				
+				result = db.QuerySingleOrDefault<T>(sqlStatement, param, null, 1000, CommandType.Text);
+			}
+			return result;
+		}
+
 
 		public DataTable ExecuteSP(string ProcName, IDictionary<string, object> _param)
 		{

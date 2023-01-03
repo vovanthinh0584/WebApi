@@ -25,18 +25,19 @@ namespace WebApplication.Controllers
             _inputRequestService = inputRequestService ?? throw new ArgumentNullException(nameof(inputRequestService));
         }
 
-        
+
         [HttpPost]
         public async Task<IActionResult> CreateInputRequestAsync([FromBody] CreateRequestInputBody body)
         {
             var tokenCurrent = HttpContextToKen.GetHttpContextToKen(this.User);
             body.BUID = tokenCurrent["BUID"].ToString();
-            body.Lang = tokenCurrent["Lang"].ToString();
+            body.Lang = tokenCurrent["LANG"].ToString();
+            body.UserId = tokenCurrent["USERID"].ToString();
             if (body is null)
             {
                 return base.BadRequest("Have not body value");
             }
-
+           
             string m = await _inputRequestService.CreateInputRequestAsync(body);
 
             if (string.IsNullOrEmpty(m))
@@ -47,7 +48,7 @@ namespace WebApplication.Controllers
             return base.BadRequest(m);
         }
 
-        
+
         [HttpGet("QueryWorkShops")]
         public async Task<IActionResult> QueryWorkShopsAsync()
         {
@@ -62,14 +63,14 @@ namespace WebApplication.Controllers
         public async Task<IActionResult> GetRequests()
         {
             var token = HttpContextToKen.GetHttpContextToKen(this.User);
-             IDictionary<string, object> param = new Dictionary<string, object>();
+            IDictionary<string, object> param = new Dictionary<string, object>();
             param["UserId"] = token["USERID"];
             param["BUID"] = token["BUID"];
             param["Lang"] = token["LANG"];
             var result = this._inputRequestService.GetListRequest("FA_tblMTNRequest_Mobile_GetRequest", param);
             return new OkObjectResult(ReturnOk(result));
         }
-    
+
         [HttpGet("QueryLocations")]
         public async Task<IActionResult> QueryLocations()
         {
@@ -82,20 +83,22 @@ namespace WebApplication.Controllers
         [HttpGet("QueryListZone")]
         public async Task<IActionResult> QueryListZone()
         {
-           IEnumerable<ZoneList> zoneList =  this._inputRequestService.QueryListZone();
+            IEnumerable<ZoneList> zoneList = this._inputRequestService.QueryListZone();
             return new OkObjectResult(ReturnOk(zoneList));
         }
         [HttpPost("ComFirmRequest")]
         public async Task<IActionResult> ComFirmRequest(string MTNRequestNum)
         {
-            object param = new  { MTNRequestNum= MTNRequestNum };
+            object param = new { MTNRequestNum = MTNRequestNum };
             var result = this._inputRequestService.ComfirmRequest("ComFirmRequest", param);
             return new OkObjectResult(ReturnOk(result));
         }
         [HttpGet("AdminMTN")]
         public async Task<IActionResult> GetAdminMTN()
         {
-           var adminMTN = this._inputRequestService.GetAdminMTN();
+            var token = HttpContextToKen.GetHttpContextToKen(this.User);
+            object para = new { UserId = token["USERID"], Lang = token["LANG"], BUID = token["BUID"], ReceiveName =string.Empty };
+            var adminMTN = this._inputRequestService.GetAdminMTN(para);
             return new OkObjectResult(ReturnOk(adminMTN));
         }
 

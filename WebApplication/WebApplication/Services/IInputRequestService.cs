@@ -19,6 +19,6 @@ namespace WebApplication.Services
 
         int ComfirmRequest(string sqlString, object param);
 
-        object GetAdminMTN();
+        SystemAdmin GetAdminMTN(object para);
     }
 }
