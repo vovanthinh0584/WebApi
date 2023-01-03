@@ -11,6 +11,9 @@ namespace WebApplication.Models.RequestBody.GetTask
         public string Status { get; set; }
         public string Level { get; set; }
         public string RequestedContent { get; set; }
-
+        public string MTNRequestNum { get; set; }
+        public DateTime MTNRequestDateTime { get; set; }
+        public string Equipment { get; set; }
+        public string DescriptionInformation { get; set; }
     }
 }

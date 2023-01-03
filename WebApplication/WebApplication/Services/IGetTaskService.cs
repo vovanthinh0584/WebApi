@@ -9,5 +9,6 @@ namespace WebApplication.Services
     {
         IEnumerable<QueryGetTaskSummary> QueryGetTask(string statementSql, object param);
         int CreateGetTask(string statementSql, CreateGetTaskBody param);
+        int FinishTask(string statementSql,object body);
     }
 }

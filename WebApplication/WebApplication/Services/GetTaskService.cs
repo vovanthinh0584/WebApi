@@ -39,5 +39,12 @@ namespace WebApplication.Services
 
             return rowAffected;
         }
+
+        public int FinishTask(string statementSql, object body)
+        {
+            int rowAffected = _dao.ExecuteSP(statementSql, body);
+
+            return rowAffected;
+        }
     }
 }
