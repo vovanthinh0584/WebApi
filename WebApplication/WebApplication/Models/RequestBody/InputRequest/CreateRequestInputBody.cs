@@ -29,6 +29,11 @@ namespace WebApplication.Models.RequestBody.InputRequest
         public bool Housekeeping { get; set; }
         public bool Others { get; set; }
 
+        public string MTNRequestNum { get; set; }
+
+        public string NotApprovalDescription { get; set; }
+        
+
 
     }
 }

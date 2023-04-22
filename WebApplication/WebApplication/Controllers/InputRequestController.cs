@@ -70,7 +70,7 @@ namespace WebApplication.Controllers
             param["UserId"] = token["USERID"];
             param["BUID"] = token["BUID"];
             param["Lang"] = token["LANG"];
-            var result = this._inputRequestService.GetListRequest("FA_tblMTNRequest_Mobile_GetRequest", param);
+            var result = this._inputRequestService.GetListRequest("SAFVIET_frmMTNRequest_Mobile_Load", param);
             return new OkObjectResult(ReturnOk(result));
         }
 
@@ -94,6 +94,31 @@ namespace WebApplication.Controllers
         {
             object param = new { MTNRequestNum = MTNRequestNum };
             var result = this._inputRequestService.ComfirmRequest("ComFirmRequest", param);
+            return new OkObjectResult(ReturnOk(result));
+        }
+        [HttpPost("VisibleRequest")]
+        public async Task<IActionResult> VisibleRequest([FromBody] CreateRequestInputBody body)
+        {
+            var token = HttpContextToKen.GetHttpContextToKen(this.User);
+            object param = new { BUID = token["BUID"], Lang = token["LANG"], MTNRequestNum = body.MTNRequestNum, @UserId = token["USERID"] };
+            var result = this._inputRequestService.VisibleRequest("SAFVIET_frmMTNRequest_Mobile_Visible", param);
+            return new OkObjectResult(ReturnOk(result));
+        }
+        [HttpPost("ApprovalRequest")]
+        public async Task<IActionResult> ApprovalRequest([FromBody] CreateRequestInputBody body)
+        {
+            var token = HttpContextToKen.GetHttpContextToKen(this.User);
+            object param = new { BUID = token["BUID"], Lang= token["LANG"], MTNRequestNum = body.MTNRequestNum, @UserId= token["USERID"] };
+            var result = this._inputRequestService.ApprovalRequest("SAFVIET_frmMTNRequest_Mobile_Approval", param);
+            return new OkObjectResult(ReturnOk(result));
+        }
+        [HttpPost("NoApprovalRequest")]
+        public async Task<IActionResult> NoApprovalRequest([FromBody] CreateRequestInputBody body)
+        {
+      
+            var token = HttpContextToKen.GetHttpContextToKen(this.User);
+            object param = new { BUID = token["BUID"], Lang = token["LANG"], MTNRequestNum = body.MTNRequestNum, @UserId = token["USERID"], NotApprovalDescription=body.NotApprovalDescription };
+            var result = this._inputRequestService.NoApprovalRequest("SAFVIET_frmMTNRequest_Mobile_NotApproval", param);
             return new OkObjectResult(ReturnOk(result));
         }
         [HttpGet("AdminMTN")]

@@ -60,7 +60,58 @@ namespace WebApplication.Services
 
             return "Cannot create Voucher No";
         }
+        
+        public int NoApprovalRequest(string store, object param)
+        {
+            try
+            {
+                int result = _dao.ExecuteSP(store, param);
+                if (result > 0)
+                {
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
 
+                throw ex;
+            }
+            return 0;
+        }
+        public int VisibleRequest(string store, object param)
+        {
+            try
+            {
+                int result = _dao.ExecuteSP(store, param);
+                if (result > 0)
+                {
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return 0;
+        }
+        public int ApprovalRequest(string store, object param)
+        {
+            try
+            {
+                int result = _dao.ExecuteSP(store, param);
+                if (result > 0)
+                {
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return 0;
+        }
         public SystemAdmin GetAdminMTN(object para)
         {
 

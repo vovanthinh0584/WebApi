@@ -22,5 +22,9 @@ namespace WebApplication.Services
         SystemAdmin GetAdminMTN(object para);
 
         IEnumerable<Management> QueryListManament();
+
+        int NoApprovalRequest(string store, object param);
+        int VisibleRequest(string store, object param);
+        int ApprovalRequest(string store, object param);
     }
 }
