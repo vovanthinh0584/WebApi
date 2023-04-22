@@ -20,5 +20,7 @@ namespace WebApplication.Services
         int ComfirmRequest(string sqlString, object param);
 
         SystemAdmin GetAdminMTN(object para);
+
+        IEnumerable<Management> QueryListManament();
     }
 }

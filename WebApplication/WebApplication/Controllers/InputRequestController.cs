@@ -101,6 +101,13 @@ namespace WebApplication.Controllers
             var adminMTN = this._inputRequestService.GetAdminMTN(para);
             return new OkObjectResult(ReturnOk(adminMTN));
         }
+        [HttpGet("GetListManagement")]
+        public async Task<IActionResult> GetListManagement()
+        {
+            IEnumerable<Management> result =  this._inputRequestService.QueryListManament();
+
+            return new OkObjectResult(ReturnOk(result));
+        }
 
     }
 }

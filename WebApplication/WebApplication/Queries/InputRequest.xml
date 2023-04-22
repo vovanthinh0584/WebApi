@@ -21,6 +21,10 @@
 		from UMS_tblUserAccount
 		where UserID = 'HUAN'
 	</Statement>
-	
+	<Statement id="GetListManagement">
+		SELECT UserID,UserName
+		from UMS_tblUserAccount
+		where Stop = 0
+	</Statement>
 
 </Statements>

@@ -32,6 +32,7 @@ namespace WebApplication.Controllers
 
             IEnumerable<QueryGetTaskSummary> GetTasks = getTaskService.QueryGetTask("SAFVIET_tblWorks_Mobile_GetTaskByUserID", param);
             return new OkObjectResult(ReturnOk(GetTasks));
+
         }
 
         [HttpPost]

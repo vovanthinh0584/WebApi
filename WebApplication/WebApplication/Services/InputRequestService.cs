@@ -21,26 +21,29 @@ namespace WebApplication.Services
 
         private async Task<string> CreateInputRequestAsync(CreateRequestInputBody body)
         {
-          
+         
             object paras = new
             {
-                UserId = body.UserId,
                 BUID = body.BUID,
+                UserId = body.UserId,
                 Lang = body.Lang,
                 ZoneId = body.ZoneId,
-                Requester = body.Requester,
-                ReceiveName = body.ReceiveName,
                 Equipment = body.Equipment,
+                MTNDeadLineDateTime = body.MTNDeadLineDateTime,
+                MNType = body.MNType,
                 Descriptionrequest = body.Descriptionrequest,
+                UserManage = body.UserManage,
                 Repair = body.Repair,
                 Projectsupporting = body.Projectsupporting,
                 Housekeeping = body.Housekeeping,
                 Others = body.Others,
-                ErrorMessage = string.Empty
+                MTNRequestNum= string.Empty,
+                ErrorMessage= string.Empty
+
             };
             try
             {
-                int result = _dao.ExecuteSP("FA_tblMTNRequest_Mobile_Send", paras);
+                int result = _dao.ExecuteSP("SAFVIET_frmMTNRequest_Mobile_Send", paras);
                 if (result > 0)
                 {
                     return string.Empty;
@@ -99,6 +102,12 @@ namespace WebApplication.Services
             string sql = _dao.GetSqlStatement("QueryListZone");
             IEnumerable<ZoneList> zoneList = _dao.Query<ZoneList>(sql, null);
             return zoneList;
+        }
+        public IEnumerable<Management> QueryListManament()
+        {
+            string sql = _dao.GetSqlStatement("GetListManagement");
+            IEnumerable<Management> result = _dao.Query<Management>(sql, null);
+            return result;
         }
         public int ComfirmRequest(string sqlString,object param)
         {
