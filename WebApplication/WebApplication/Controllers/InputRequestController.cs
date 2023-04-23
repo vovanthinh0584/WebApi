@@ -63,6 +63,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet("GetRequests")]
+        [ResponseCache(NoStore = true, Duration = 0, Location = ResponseCacheLocation.None)]
         public async Task<IActionResult> GetRequests()
         {
             var token = HttpContextToKen.GetHttpContextToKen(this.User);
