@@ -43,7 +43,7 @@ namespace WebApplication.Services
             };
             try
             {
-                int result = _dao.ExecuteSP("SAFVIET_frmMTNRequest_Mobile_Send", paras);
+                int result = _dao.ExecuteSP("SAFVIET_frmMTNRequest_Mobile_Save", paras);
                 if (result > 0)
                 {
                     return string.Empty;
@@ -60,7 +60,40 @@ namespace WebApplication.Services
 
             return "Cannot create Voucher No";
         }
-        
+
+        private async Task<string> SendRequestAsync(CreateRequestInputBody body)
+        {
+
+            object paras = new
+            {
+                BUID = body.BUID,
+                UserId = body.UserId,
+                Lang = body.Lang,
+                MTNRequestNum =body.MTNRequestNum,
+                UserManage= body.UserManage,
+                ErrorMessage = string.Empty
+
+            };
+            try
+            {
+                int result = _dao.ExecuteSP("SAFVIET_frmMTNRequest_Mobile_Send", paras);
+                if (result > 0)
+                {
+                    return string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+
+
+
+            return "Cannot create Voucher No";
+        }
+
         public int NoApprovalRequest(string store, object param)
         {
             try
@@ -172,5 +205,8 @@ namespace WebApplication.Services
         => this.QueryWorkShopsAsync(BuId);
         Task<IEnumerable<LocationSummary>> IInputRequestService.QueryLocationsAsync(string BuId)
        => this.QueryLocationsAsync(BuId);
+
+        Task<string> IInputRequestService.SendRequestAsync(CreateRequestInputBody body)
+           => this.SendRequestAsync(body);
     }
 }

@@ -50,7 +50,29 @@ namespace WebApplication.Controllers
 
             return base.BadRequest(m);
         }
+        [HttpPost("SendInputRequest")]
+        public async Task<IActionResult> SendRequestAsync([FromBody] CreateRequestInputBody body)
+        {
+            var tokenCurrent = HttpContextToKen.GetHttpContextToKen(this.User);
+            body.BUID = tokenCurrent["BUID"].ToString();
+            body.Lang = tokenCurrent["LANG"].ToString();
+            body.UserId = tokenCurrent["USERID"].ToString();
+            body.UserManage = body.UserManage;
 
+            if (body is null)
+            {
+                return base.BadRequest("Have not body value");
+            }
+
+            string m = await _inputRequestService.SendRequestAsync(body);
+
+            if (string.IsNullOrEmpty(m))
+            {
+                return new ObjectResult(ReturnOk(_message.GetMessage("MBL00003", body.Lang)));
+            }
+
+            return base.BadRequest(m);
+        }
 
         [HttpGet("QueryWorkShops")]
         public async Task<IActionResult> QueryWorkShopsAsync()
