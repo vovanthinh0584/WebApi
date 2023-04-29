@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Statements>
+	<Statement id="QueryVendorManagers">
+		select Distinct A.UserID, UserName
+		from UMS_tblUserAccount A
+		INNER JOIN (
+		SELECT Code
+		FROM SAFVIET_tblDanhSachQuanLy
+		WHERE [Type] = '1'
+		) B  ON B.Code = A.UserID
+		where [Stop] = 0
+	</Statement>
+	<Statement id="QueryProjectManagers">
+		select Distinct A.UserID, UserName
+		from UMS_tblUserAccount A
+		INNER JOIN (
+		SELECT Code
+		FROM SAFVIET_tblDanhSachQuanLy
+		WHERE [Type] = '2'
+		) B  ON B.Code = A.UserID
+		where [Stop] = 0
+	</Statement>
+	
+
+</Statements>
