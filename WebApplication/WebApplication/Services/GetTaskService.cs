@@ -32,7 +32,11 @@ namespace WebApplication.Services
             }
             return rows;
         }
-
+        public DataTable QueryFilterWorks(string statementSql, IDictionary<string, object> param)
+        {
+            var result = _dao.ExecuteSP(statementSql, param);
+            return result;
+        }
         public int CreateGetTask(string statementSql, CreateGetTaskBody param)
         {
             int rowAffected = _dao.ExecuteSP(statementSql, param);
@@ -45,6 +49,24 @@ namespace WebApplication.Services
             int rowAffected = _dao.ExecuteSP(statementSql, body);
 
             return rowAffected;
+        }
+        public int AssignWorks(string statementSql, object body)
+        {
+            int result = _dao.ExecuteSP(statementSql, body);
+            return result;
+        }
+       
+        public IEnumerable<TeamDTO> QueryTeams()
+        {
+            string sql = _dao.GetSqlStatement("QueryTeams");
+            IEnumerable<TeamDTO> result = _dao.Query<TeamDTO>(sql, null);
+            return result;
+        }
+        public IEnumerable<WorkerDTO> QueryWorkers()
+        {
+            string sql = _dao.GetSqlStatement("QueryWorkers");
+            IEnumerable<WorkerDTO> result = _dao.Query<WorkerDTO>(sql, null);
+            return result;
         }
     }
 }

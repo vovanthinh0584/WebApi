@@ -10,5 +10,12 @@
         public string UserId { get; set; }
         public string BUID { get; set; }
         public string LANG { get; set; }
+        public string FilterType { get; set; }
+        public string FilterDescription { get; set; }
+        public string Team { get; set; }
+        public string Worker { get; set; }
+        public string Level { get; set; }
+
+      
     }
 }

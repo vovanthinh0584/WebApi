@@ -19,52 +19,73 @@ namespace WebApplication.Controllers
         }
 
 
-        [HttpGet]
-        public virtual IActionResult QueryGetTask()
+        [HttpPost("SearchListWork")]
+        public virtual IActionResult SearchListWork(CreateGetTaskBody body)
+        {
+            var token = HttpContextToKen.GetHttpContextToKen(this.User);
+            IDictionary<string, object> param = new Dictionary<string, object>();
+            param["UserId"] = token["USERID"];
+            param["BUID"] = token["BUID"];
+            param["Lang"] = token["LANG"];
+            param["FilterType"] = body.FilterType;
+            param["FilterDescription"] = body.FilterDescription;
+            var result = getTaskService.QueryFilterWorks("SAFVIET_tblWorks_Mobile_Filter", param);
+            return new OkObjectResult(ReturnOk(result));
+
+        }
+      
+        [HttpPost("AssignWork")]
+        public virtual IActionResult AssignWork(CreateGetTaskBody body)
         {
             var token = HttpContextToKen.GetHttpContextToKen(this.User);
             object param = new
             {
                 UserId = token["USERID"],
                 BUID = token["BUID"],
-                LANG = token["LANG"]
+                LANG = token["LANG"],
+                WorkNo = body.WorkNo,
+                TeamId = body.Team,
+                WorkerId = body.Worker,
+                Level = body.Level
             };
 
-            IEnumerable<QueryGetTaskSummary> GetTasks = getTaskService.QueryGetTask("SAFVIET_tblWorks_Mobile_GetTaskByUserID", param);
-            return new OkObjectResult(ReturnOk(GetTasks));
-
-        }
-
-        [HttpPost]
-        public virtual IActionResult CreateGetTask(CreateGetTaskBody body)
-        {
-            var token = HttpContextToKen.GetHttpContextToKen(this.User);
-
-            body.UserId = token["USERID"].ToString();
-            body.BUID = token["BUID"].ToString();
-            body.LANG = token["LANG"].ToString();
-
-            int result = getTaskService.CreateGetTask("FA_tblWorkMaintain_Mobile_Confirm", body);
+            int result = getTaskService.AssignWorks("SAFVIET_AssignTask_Mobile_Apply", param);
 
             return new OkObjectResult(ReturnOk(result));
         }
 
-        [HttpPost("Finished/{WorkNo}")]
-        public virtual IActionResult CreateGetTask(string WorkNo)
+        [HttpPost("FinishedWork")]
+        public virtual IActionResult FinishedWork([FromBody]CreateGetTaskBody body)
         {
             var token = HttpContextToKen.GetHttpContextToKen(this.User);
 
-            object body = new
+            object paras = new
             {
                 UserId = token["USERID"],
                 BUID = token["BUID"],
                 LANG = token["LANG"],
-                WorkNo = WorkNo
+                WorkNo = body.WorkNo
             };
 
-            int result = getTaskService.FinishTask("SAFVIET_tblWorks_Mobile_Finished", body);
+            int result = getTaskService.FinishTask("SAFVIET_tblWorks_Mobile_Finished", paras);
+
+            return new OkObjectResult(ReturnOk(result));
+        }
+        [HttpGet("QueryWorkers")]
+        public virtual IActionResult QueryWorkers()
+        {
+            IEnumerable<WorkerDTO> result = this.getTaskService.QueryWorkers();
+
+            return new OkObjectResult(ReturnOk(result));
+        }
+        [HttpGet("QueryTeams")]
+        public virtual IActionResult QueryTeams()
+        {
+            IEnumerable<TeamDTO> result = this.getTaskService.QueryTeams();
 
             return new OkObjectResult(ReturnOk(result));
         }
     }
+
+   
 }

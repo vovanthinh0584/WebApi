@@ -14,4 +14,14 @@ namespace WebApplication.Models
         public string BUID { get; set; }
 
     }
+    public class TeamDTO
+    {
+        public string TeamGroupId { get; set; }
+    }
+    public class WorkerDTO
+    {
+        public string WorkerId { get; set; }
+        public string WorkerName { get; set; }
+        
+    }
 }
