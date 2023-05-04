@@ -70,6 +70,8 @@ namespace WebApplication.Controllers
                 UserId = tokenCurrent["USERID"].ToString(),
                 WorkPermitNo = body.WorkPermitNo,
                 ProjectManager = body.ProjectManager,
+                ZoneManager = body.ZoneManager,
+                SafeManager = body.SafeManager,
                 @ErrorMessage = string.Empty
             };
             if (body is null)
@@ -125,6 +127,24 @@ namespace WebApplication.Controllers
 
             return new OkObjectResult(ReturnOk(result));
         }
+
+        [HttpGet("QueryZoneManagers")]
+        public async Task<IActionResult> QueryZoneManagers()
+        {
+            var token = HttpContextToKen.GetHttpContextToKen(this.User);
+            object paras = new { UserID = token["USERID"] };
+            IEnumerable<object> result = this._dao.StatementQuery<object>("QueryZoneManagers", paras);
+            return new OkObjectResult(ReturnOk(result));
+        }
+        [HttpGet("QuerySaleManagers")]
+        public async Task<IActionResult> QuerySaleManagers()
+        {
+            var token = HttpContextToKen.GetHttpContextToKen(this.User);
+            object paras = new { UserID = token["USERID"] };
+            IEnumerable<object> result = this._dao.StatementQuery<object>("QuerySaleManagers", paras);
+
+            return new OkObjectResult(ReturnOk(result));
+        }
         [HttpGet("GetProjectManagers")]
         public async Task<IActionResult> GetProjectManagers()
         {
@@ -171,6 +191,30 @@ namespace WebApplication.Controllers
             var result = this._dao.ExecuteSP("SAFVIET_frmWorkPermit_Mobile_Update_AttachmentFile",paras);
             return new OkObjectResult(ReturnOk(result));
         }
-
+        [HttpPost("Approval")]
+        public async Task<IActionResult> Approval([FromBody] WorkPermitBody body)
+        {
+            var token = HttpContextToKen.GetHttpContextToKen(this.User);
+            object param = new { BUID = token["BUID"], Lang = token["LANG"], Status = body.Status, WorkPermitNo = body.WorkPermitNo, @UserId = token["USERID"], UserApproval= body.UserApproval };
+            var result = this._dao.ExecuteSP("SAFVIET_frmWorkPermit_Mobile_Approval", param);
+            return new OkObjectResult(ReturnOk(result));
+        }
+        
+        [HttpPost("NoApproval")]
+        public async Task<IActionResult> NoApproval([FromBody] WorkPermitBody body)
+        {
+            var token = HttpContextToKen.GetHttpContextToKen(this.User);
+            object param = new { BUID = token["BUID"], Lang = token["LANG"], Status = body.Status, WorkPermitNo = body.WorkPermitNo, @UserId = token["USERID"], UserApproval = body.UserApproval };
+            var result = this._dao.ExecuteSP("SAFVIET_frmWorkPermit_Mobile_NotApproval", param);
+            return new OkObjectResult(ReturnOk(result));
+        }
+        [HttpPost("CloseWorkerPermit")]
+        public async Task<IActionResult> CloseWorkerPermit([FromBody] WorkPermitBody body)
+        {
+            var token = HttpContextToKen.GetHttpContextToKen(this.User);
+            object param = new { BUID = token["BUID"], Lang = token["LANG"], WorkPermitNo = body.WorkPermitNo, @UserId = token["USERID"] };
+            var result = this._dao.ExecuteSP("SAFVIET_frmWorkPermit_Mobile_Close", param);
+            return new OkObjectResult(ReturnOk(result));
+        }
     }
 }

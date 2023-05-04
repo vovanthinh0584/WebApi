@@ -20,6 +20,34 @@
 		) B  ON B.Code = A.UserID
 		where [Stop] = 0
 	</Statement>
-	
-
+	<Statement id="QueryZoneManagers">
+		select Distinct A.UserID, UserName
+			from UMS_tblUserAccount A 
+			INNER JOIN (
+							SELECT Code
+							FROM SAFVIET_tblDanhSachQuanLy		
+							WHERE [Type] = '3'				
+							) B  ON B.Code = A.UserID
+			where [Stop] = 0
+	</Statement>
+   <Statement id="QueryZoneManagers">
+		select Distinct A.UserID, UserName
+			from UMS_tblUserAccount A 
+			INNER JOIN (
+							SELECT Code
+							FROM SAFVIET_tblDanhSachQuanLy		
+							WHERE [Type] = '3'				
+							) B  ON B.Code = A.UserID
+			where [Stop] = 0
+	</Statement>
+	<Statement id="QuerySaleManagers">
+		 select Distinct A.UserID, UserName
+			from UMS_tblUserAccount A
+			INNER JOIN (
+			SELECT Code
+			FROM SAFVIET_tblDanhSachQuanLy
+			WHERE [Type] = '4'
+			) B  ON B.Code = A.UserID
+			where [Stop] = 0
+	</Statement>
 </Statements>

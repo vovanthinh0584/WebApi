@@ -35,7 +35,14 @@ namespace WebApplication.Models
         public float FileSize { get; set; }
 
         public Guid ? RecID { get; set; }
-        
+
+        public string UserApproval { get; set; }
+
+        public string Status { get; set; }
+
+        public string ZoneManager { get; set; }
+
+        public string SafeManager { get; set; }
 
         public string ErrorMessage { get; set; }
 
