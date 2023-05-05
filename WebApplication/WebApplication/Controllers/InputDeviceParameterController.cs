@@ -14,7 +14,7 @@ using WebApplication.Utils;
 namespace WebApplication.Controllers
 {
 
-    public  class InputDeviceParameterController : BaseController
+    public class InputDeviceParameterController : BaseController
     {
         IMessage _message;
         IAppSettings _appSettings;
@@ -28,10 +28,10 @@ namespace WebApplication.Controllers
         }
         [AllowAnonymous]
         [HttpPost]
-        public virtual IActionResult  CreateInputDeviceParameter([FromBody] InputDeviceParameterDTO body)
+        public virtual IActionResult CreateInputDeviceParameter([FromBody] InputDeviceParameterDTO body)
         {
-           
-            string m = _inputDeviceParameterService.CreateInputDeviceParameter("FA_tblInputAssetOperating_Mobile_Save", body);
+
+            string m = _inputDeviceParameterService.CreateInputDeviceParameter("SAFVIET_frmDeviceParameter_Mobile_Save", body);
 
             return new OkObjectResult(ReturnOk(m));
         }
@@ -42,7 +42,12 @@ namespace WebApplication.Controllers
             var listAsset = _inputDeviceParameterService.GetListAsset("GetListAsset", null);
             var listOperating = _inputDeviceParameterService.GetListOperating("GetListOperating", null);
             var listUM = _inputDeviceParameterService.GetListUM("GetListUM", null);
-            return new OkObjectResult(ReturnOk(new { listAsset, listOperating, listUM }));
+
+            var zones = _inputDeviceParameterService.GetListZone();
+            var shifts = _inputDeviceParameterService.GetListShift();
+            var devices = _inputDeviceParameterService.GetListDevice();
+            var times = _inputDeviceParameterService.GetListTime();
+            return new OkObjectResult(ReturnOk(new { listAsset, listOperating, listUM, zones, shifts, devices, times }));
         }
 
         [AllowAnonymous]
@@ -50,28 +55,47 @@ namespace WebApplication.Controllers
         public virtual IActionResult GetParameter([FromBody] InputDeviceParameterDTO body)
         {
             IDictionary<string, object> param = new Dictionary<string, object>();
-            param["UserId"] = body.UserId;
+
             param["BUID"] = body.BUID;
-            param["Lang"] = body.Lang;
-            param["AssetId"] = body.AssetId;
-            param["InputDate"] = body.InputDate;
-            
-            var dt = _inputDeviceParameterService.GetParameter("FA_tblInputAssetOperating_Mobile_GetParameter", param);
+            param["LANG"] = body.Lang;
+            param["USERID"] = body.UserId;
+            param["Zone"] = body.Zone;
+            //param["Zone"] = "12";
+            param["Device"] = body.Device;
+            //param["Device"] = "Boiler";
+            param["Date"] = body.InputDate;
+            param["Shift"] = body.Shift;
+            //param["Shift"] = "CA1";
+            param["Time"] = body.Time;
+            //param["Time"] = 9;
+
+            var dt = _inputDeviceParameterService.GetParameter("SAFVIET_frmDeviceParameter_Mobile_GetCheckinglist", param);
 
             IEnumerable<InputDeviceParameterDTO> result = dt.AsEnumerable().Select(x => new InputDeviceParameterDTO()
             {
-                AssetId = x.Field<string>("AssetId"),
-                InputDate = x.Field<DateTime>("InputDate"),
-                OperatingId = x.Field<string>("OperatingId"),
-                UMID = x.Field<string>("UMID"),
-                Value = x.Field<decimal>("Value"),
-                RecordID = x.Field<Guid>("RecordID")
+                //AssetId = x.Field<string>("AssetId"),
+                //InputDate = x.Field<DateTime>("InputDate"),
+                //OperatingId = x.Field<string>("OperatingId"),
+                //UMID = x.Field<string>("UMID"),
+                //Value = x.Field<decimal>("Value"),
+                //RecordID = x.Field<Guid>("RecordID")
+
+                Id = x.Field<Int64>("Id"),
+                Zone = x.Field<string>("ZoneId"),
+                Device = x.Field<string>("DeviceId"),
+                Date = x.Field<DateTime>("Date"),
+                Shift = x.Field<string>("ShiftID"),
+                Time = x.Field<Int64>("AttimeId"),
+                ChecklistID = x.Field<string>("ChecklistID"),
+                StandardValue = x.Field<string>("StandardValue"),
+                Confirm = x.Field<bool>("Confirm"),
+                NonConfirm = x.Field<bool>("NonConfirm"),
             }).ToList();
 
 
             return new OkObjectResult(ReturnOk(result));
         }
     }
-    
-    
+
+
 }

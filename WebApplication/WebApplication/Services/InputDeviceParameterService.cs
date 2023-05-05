@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using WebApplication.Common;
 using WebApplication.Models;
@@ -19,25 +21,28 @@ namespace WebApplication.Services
             _message = message ?? throw new ArgumentException(nameof(message));
         }
 
-        public string CreateInputDeviceParameter(string statementSql,InputDeviceParameterDTO body)
+        public string CreateInputDeviceParameter(string statementSql, InputDeviceParameterDTO body)
         {
-            
+
             object paras = new
             {
                 BUID = body.BUID,
                 Lang = body.Lang,
-                UserId = body.UserId,
-                InputDate = body.InputDate,
-                AssetId = body.AssetId,
-                OperatingId = body.OperatingId,
-                UMID = body.UMID,
+                USERID = body.UserId,
+                Device = body.Device,
+                Zone = body.Zone,
+                Shift = body.Shift,
+                Date = body.Date,
+                ChecklistID = body.ChecklistID,
+                StandardValue = body.StandardValue,
                 Value = body.Value,
-                Note=body.Note,
-                RecordID =body.RecordID
-                
+                Confirm = body.Confirm,
+                Time = body.Time,
+                Id = body.Id,
+                NonConfirm = !body.Confirm
             };
             int result = _dao.ExecuteSP(statementSql, paras);
-            if(result > 0)
+            if (result > 0)
             {
                 return string.Empty;
             }
@@ -63,7 +68,36 @@ namespace WebApplication.Services
             IEnumerable<object> listCaptions = _dao.Query<object>(sql, param);
             return listCaptions;
         }
-        public DataTable GetParameter(string statementSql,IDictionary<string, object> param)
+
+        public IEnumerable<object> GetListZone()
+        {
+            string sql = _dao.GetSqlStatement("GetListZone");
+            IEnumerable<object> zones = _dao.Query<object>(sql, null);
+            return zones;
+        }
+
+        public IEnumerable<object> GetListShift()
+        {
+            string sql = _dao.GetSqlStatement("GetListShift");
+            IEnumerable<object> zones = _dao.Query<object>(sql, null);
+            return zones;
+        }
+
+        public IEnumerable<object> GetListDevice()
+        {
+            string sql = _dao.GetSqlStatement("GetListDevice");
+            IEnumerable<object> zones = _dao.Query<object>(sql, null);
+            return zones;
+        }
+
+        public IEnumerable<object> GetListTime()
+        {
+            string sql = _dao.GetSqlStatement("GetListTime");
+            IEnumerable<object> zones = _dao.Query<object>(sql, null);
+            return zones;
+        }
+
+        public DataTable GetParameter(string statementSql, IDictionary<string, object> param)
         {
             var parameter = _dao.ExecuteSP(statementSql, param);
             return parameter;
