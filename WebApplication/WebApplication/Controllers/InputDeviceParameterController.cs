@@ -70,7 +70,7 @@ namespace WebApplication.Controllers
             //param["Time"] = 9;
 
             var dt = _inputDeviceParameterService.GetParameter("SAFVIET_frmDeviceParameter_Mobile_GetCheckinglist", param);
-
+            var dt1 = dt.AsEnumerable().ToList();
             IEnumerable<InputDeviceParameterDTO> result = dt.AsEnumerable().Select(x => new InputDeviceParameterDTO()
             {
                 //AssetId = x.Field<string>("AssetId"),
@@ -90,6 +90,7 @@ namespace WebApplication.Controllers
                 StandardValue = x.Field<string>("StandardValue"),
                 Confirm = x.Field<bool>("Confirm"),
                 NonConfirm = x.Field<bool>("NonConfirm"),
+                Value = x.Field<string>("Value"),
             }).ToList();
 
 

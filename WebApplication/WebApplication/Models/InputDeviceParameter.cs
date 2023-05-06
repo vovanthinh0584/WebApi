@@ -9,7 +9,7 @@ namespace WebApplication.Models
         public DateTime InputDate { get; set; }
         public string OperatingId { get; set; }
         public string UMID { get; set; }
-        public decimal Value { get; set; }
+        public string Value { get; set; }
         public string Note { get; set; }
 
         public Guid RecordID { get; set; }

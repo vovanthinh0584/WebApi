@@ -39,7 +39,7 @@ namespace WebApplication.Services
                 Confirm = body.Confirm,
                 Time = body.Time,
                 Id = body.Id,
-                NonConfirm = !body.Confirm
+                NonConfirm = body.NonConfirm
             };
             int result = _dao.ExecuteSP(statementSql, paras);
             if (result > 0)
