@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Statements>
+	<Statement id="QueryTeams">
+		select TeamGroupId from SAFVIET_tblTeams
+	</Statement>
+	<Statement id="QueryWorkers">
+		select WorkerId, WorkerName from SAFVIET_tblWorker where [Stop] = 0
+	</Statement>
+	
+
+</Statements>

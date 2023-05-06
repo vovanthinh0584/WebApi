@@ -12,5 +12,8 @@ namespace WebApplication.Models
 
         public string Id { get; set; }
 
+
+        public DateTime? Date { get; set; }
+
     }
 }
