@@ -58,7 +58,7 @@ namespace WebApplication.Controllers
             param["BUID"] = token["BUID"];
             param["Lang"] = token["LANG"];
             param["BeginNum"] = body.BeginNum;
-            param["EndNum"] = body.BeginNum;
+            param["EndNum"] = body.EndNum;
             if (body is null)
             {
                 return base.BadRequest("Have not body value");
