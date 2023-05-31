@@ -16,8 +16,7 @@
 		select ShiftID, ShiftName from FA_tblShifts where Stop = 0
 	</Statement>
 	<Statement id="GetListDevice">
-		SELECT DISTINCT T.DeviceId, T1.DeviceName FROM SAFVIET_tblDeviceParameter T
-		INNER JOIN SAFVIET_tblDevices T1 ON T.DeviceId = T1.DeviceId
+		SELECT DeviceId, DeviceName FROM SAFVIET_tblDevices WHERE Cumthietbi = 1
 	</Statement>
 	<Statement id="GetListTime">
 		select Id, Attime, ShiftId from FA_tblShifts_Attime where Stop = 0

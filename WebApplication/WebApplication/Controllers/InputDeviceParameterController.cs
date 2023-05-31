@@ -59,15 +59,16 @@ namespace WebApplication.Controllers
             param["BUID"] = body.BUID;
             param["LANG"] = body.Lang;
             param["USERID"] = body.UserId;
-            param["Zone"] = body.Zone;
-            //param["Zone"] = "12";
-            param["Device"] = body.Device;
-            //param["Device"] = "Boiler";
-            param["Date"] = body.InputDate;
-            param["Shift"] = body.Shift;
-            //param["Shift"] = "CA1";
-            param["Time"] = body.Time;
-            //param["Time"] = 9;
+            //param["Zone"] = body.Zone;
+            param["Zone"] = "12";
+            //param["Device"] = body.Device;
+            param["Device"] = "E13.31";
+            //param["Date"] = body.InputDate;
+            param["Date"] = new DateTime(2023, 5, 17);
+            //param["Shift"] = body.Shift;
+            param["Shift"] = "CA1";
+            //param["Time"] = body.Time;
+            param["Time"] = 9;
 
             var dt = _inputDeviceParameterService.GetParameter("SAFVIET_frmDeviceParameter_Mobile_GetCheckinglist", param);
             var dt1 = dt.AsEnumerable().ToList();
@@ -93,6 +94,21 @@ namespace WebApplication.Controllers
                 Value = x.Field<string>("Value"),
             }).ToList();
 
+
+            return new OkObjectResult(ReturnOk(result));
+        }
+
+        [HttpPost("CloseInput")]
+        public virtual IActionResult CloseInput([FromBody] InputDeviceParameterDTO body)
+        {
+            IDictionary<string, object> param = new Dictionary<string, object>();
+
+            param["BUID"] = body.BUID;
+            param["LANG"] = body.Lang;
+            param["USERID"] = body.UserId;
+            param["Device"] = body.Device;
+
+            var result = _inputDeviceParameterService.GetParameter("SAFVIET_frmDeviceParameter_Mobile_Close", param);
 
             return new OkObjectResult(ReturnOk(result));
         }
