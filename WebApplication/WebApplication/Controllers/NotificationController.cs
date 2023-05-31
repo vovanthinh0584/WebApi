@@ -32,8 +32,6 @@ namespace WebApplication.Controllers
             param["BUID"] = token["BUID"];
             param["Lang"] = token["LANG"];
             param["CountWatched"] = string.Empty;
-
-
             var result = _dao.ExecuteSP("SAFVIET_tblNotifications_Mobile_CountWatched", param);
 
             return new OkObjectResult(ReturnOk(result));
