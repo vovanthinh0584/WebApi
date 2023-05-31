@@ -67,8 +67,8 @@ namespace WebApplication.Controllers
             return new OkObjectResult(ReturnOk(result));
         }
 
-        [HttpPost("UpdateNotificationRead")]
-        public virtual IActionResult UpdateNotificationRead([FromBody] Notification body)
+        [HttpPost("UpdateNotification")]
+        public virtual IActionResult UpdateNotification([FromBody] Notification body)
         {
             var tokenCurrent = HttpContextToKen.GetHttpContextToKen(this.User);
             object paras = new
