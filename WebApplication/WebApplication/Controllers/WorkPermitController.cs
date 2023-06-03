@@ -45,7 +45,7 @@ namespace WebApplication.Controllers
             };
             try
             {
-                 var result = this._dao.ExecuteSP("SAFVIET_frmWorkPermit_Mobile_Save", paras);
+                var result = this._dao.ExecuteSP("SAFVIET_frmWorkPermit_Mobile_Save", paras);
                 return new OkObjectResult(ReturnOk(result));
             }
             catch (Exception ex)
@@ -55,7 +55,7 @@ namespace WebApplication.Controllers
             }
 
             return null;
-           
+
         }
 
 
@@ -81,7 +81,7 @@ namespace WebApplication.Controllers
             var result = _dao.ExecuteSP("SAFVIET_frmWorkPermit_Mobile_Send", paras);
             return new OkObjectResult(ReturnOk(result));
         }
-   
+
         [HttpPost("SaveImageWorkPermit")]
         public virtual IActionResult SaveImage([FromBody] WorkPermitBody body)
         {
@@ -95,7 +95,7 @@ namespace WebApplication.Controllers
                 FileImage = body.FileImage,
                 FileName = body.FileName,
                 FileSize = 2000,
-                FileType ="png"
+                FileType = "png"
             };
             if (body is null)
             {
@@ -182,24 +182,24 @@ namespace WebApplication.Controllers
             var token = HttpContextToKen.GetHttpContextToKen(this.User);
             object paras = new
             {
-                RecID  =body.RecID,
+                RecID = body.RecID,
                 FileImage = body.FileImage,
                 FileName = body.FileName,
                 FileSize = 2000,
                 FileType = "png"
             };
-            var result = this._dao.ExecuteSP("SAFVIET_frmWorkPermit_Mobile_Update_AttachmentFile",paras);
+            var result = this._dao.ExecuteSP("SAFVIET_frmWorkPermit_Mobile_Update_AttachmentFile", paras);
             return new OkObjectResult(ReturnOk(result));
         }
         [HttpPost("Approval")]
         public async Task<IActionResult> Approval([FromBody] WorkPermitBody body)
         {
             var token = HttpContextToKen.GetHttpContextToKen(this.User);
-            object param = new { BUID = token["BUID"], Lang = token["LANG"], Status = body.Status, WorkPermitNo = body.WorkPermitNo, @UserId = token["USERID"], UserApproval= body.UserApproval };
+            object param = new { BUID = token["BUID"], Lang = token["LANG"], Status = body.Status, WorkPermitNo = body.WorkPermitNo, @UserId = token["USERID"], UserApproval = body.UserApproval };
             var result = this._dao.ExecuteSP("SAFVIET_frmWorkPermit_Mobile_Approval", param);
             return new OkObjectResult(ReturnOk(result));
         }
-        
+
         [HttpPost("NoApproval")]
         public async Task<IActionResult> NoApproval([FromBody] WorkPermitBody body)
         {
@@ -215,6 +215,15 @@ namespace WebApplication.Controllers
             object param = new { BUID = token["BUID"], Lang = token["LANG"], WorkPermitNo = body.WorkPermitNo, @UserId = token["USERID"] };
             var result = this._dao.ExecuteSP("SAFVIET_frmWorkPermit_Mobile_Close", param);
             return new OkObjectResult(ReturnOk(result));
+        }
+
+        [HttpPost("ExtendWork")]
+        public async Task<IActionResult> ExtendWork([FromBody] WorkPermitBody body)
+        {
+            var token = HttpContextToKen.GetHttpContextToKen(this.User);
+            object param = new { BUID = token["BUID"], Lang = token["LANG"], WorkPermitNo = body.WorkPermitNo, @UserId = token["USERID"], ErrorMessage = string.Empty };
+            var result = this._dao.ExecuteSP("SAFVIET_frmWorkPermit_Mobile_GiaHan", param);
+            return new OkObjectResult(ReturnOk(param));
         }
     }
 }

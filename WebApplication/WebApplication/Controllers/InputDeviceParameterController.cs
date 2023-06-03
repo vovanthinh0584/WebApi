@@ -106,7 +106,8 @@ namespace WebApplication.Controllers
             param["BUID"] = body.BUID;
             param["LANG"] = body.Lang;
             param["USERID"] = body.UserId;
-            param["Device"] = body.Device;
+            param["DeviceId"] = body.Device;
+            param["ErrorMessage"] = null;
 
             var result = _inputDeviceParameterService.GetParameter("SAFVIET_frmDeviceParameter_Mobile_Close", param);
 
