@@ -40,6 +40,7 @@ namespace WebApplication.Controllers
         [HttpPost("GetTotalNotificationNew")]
         public virtual IActionResult GetTotalNotificationNew()
         {
+
             var token = HttpContextToKen.GetHttpContextToKen(this.User);
             IDictionary<string, object> param = new Dictionary<string, object>();
             param["UserId"] = token["USERID"];
