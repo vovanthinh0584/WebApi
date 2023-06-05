@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplication.Models;
@@ -65,6 +66,23 @@ namespace WebApplication.Controllers
                 return base.BadRequest("Have not body value");
             }
             var result = _dao.ExecuteSP("SAFVIET_tblNotifications_Mobile_Load", param);
+  
+         
+           var listNotificationNew = result.AsEnumerable().Where(x=> x.Field<bool>("Watched") ==false).Select(x => 
+            x.Field<Int64>("Id")).ToList();
+            if(listNotificationNew.Count()>0)
+            {
+                var stringId = string.Join(",",listNotificationNew);
+                object paraNotification = new
+                {
+                    BUID = token["BUID"].ToString(),
+                    Lang = token["LANG"].ToString(),
+                    UserId = token["USERID"].ToString(),
+                    Id = body.Id
+                };
+                var result1 = _dao.ExecuteSP("SAFVIET_tblNotifications_Mobile_Update", paraNotification);
+            }    
+          
             return new OkObjectResult(ReturnOk(result));
         }
 
