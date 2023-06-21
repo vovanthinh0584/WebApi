@@ -32,7 +32,7 @@ namespace WebApplication.Controllers
             param["UserId"] = token["USERID"];
             param["BUID"] = token["BUID"];
             param["Lang"] = token["LANG"];
-            param["CountWatched"] = string.Empty;
+            param["CountWatched"] = 0;
             var result = _dao.ExecuteSP("SAFVIET_tblNotifications_Mobile_CountWatched", param);
 
             return new OkObjectResult(ReturnOk(result));
@@ -47,7 +47,7 @@ namespace WebApplication.Controllers
             param["BUID"] = token["BUID"];
             param["Lang"] = token["LANG"];
 
-            param["CountNotWatched"] = string.Empty;
+            param["CountNotWatched"] = 0;
             var result = _dao.ExecuteSP("SAFVIET_tblNotifications_Mobile_CountNotWatched", token);
             return new OkObjectResult(ReturnOk(result));
         }
