@@ -60,15 +60,19 @@ namespace WebApplication.Controllers
             param["LANG"] = body.Lang;
             param["USERID"] = body.UserId;
             //param["Zone"] = body.Zone;
-            param["Zone"] = "12";
-            //param["Device"] = body.Device;
-            param["Device"] = "E13.31";
+            param["Zone"] = null;
+
+            param["Device"] = body.Device;
+            //param["Device"] = "E13.31";
             //param["Date"] = body.InputDate;
-            param["Date"] = new DateTime(2023, 5, 17);
+            param["Date"] = null;
+
             //param["Shift"] = body.Shift;
-            param["Shift"] = "CA1";
+            param["Shift"] = null;
+
             //param["Time"] = body.Time;
-            param["Time"] = 9;
+            param["Time"] = null;
+
 
             var dt = _inputDeviceParameterService.GetParameter("SAFVIET_frmDeviceParameter_Mobile_GetCheckinglist", param);
             var dt1 = dt.AsEnumerable().ToList();
