@@ -75,6 +75,7 @@ namespace WebApplication.Controllers
             user.TOKEN = tokenString;
             user.SessionExpires = tokenDescriptor.Expires.Value;
             user.Password = null;
+
             return new OkObjectResult(ReturnOk(user));
         }
     }
