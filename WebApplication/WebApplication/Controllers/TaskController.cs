@@ -46,7 +46,9 @@ namespace WebApplication.Controllers
                 WorkNo = body.WorkNo,
                 TeamId = body.Team,
                 WorkerId = body.Worker,
-                Level = body.Level
+                Level = body.Level,
+                KindOfWork = body.KindOfWork,
+                Classification = body.Classification
             };
 
             int result = getTaskService.AssignWorks("SAFVIET_AssignTask_Mobile_Apply", param);

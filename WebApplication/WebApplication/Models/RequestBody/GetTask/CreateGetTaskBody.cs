@@ -15,7 +15,7 @@
         public string Team { get; set; }
         public string Worker { get; set; }
         public string Level { get; set; }
-
-      
+        public string Classification { get; set; }
+        public string KindOfWork { get; set; }
     }
 }
