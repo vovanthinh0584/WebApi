@@ -62,12 +62,12 @@ namespace WebApplication.Services
             {
                 var detail = listUsers.FirstOrDefault();
                 string passwordEncrypt = Encrypting.AesEncrypt(user.Password, user.Password, user.Password);
-                isCheckLogin = true;
+                
                 user.Permissions = GetPermission(permissons);
-                //if (passwordEncrypt == detail.Password)
-                //{
-                //    isCheckLogin = true;
-                //}
+                if (user.Password == detail.PasswordNotMahoa)
+                {
+                    isCheckLogin = true;
+                }
             }
             if (isCheckLogin == true)
             {
