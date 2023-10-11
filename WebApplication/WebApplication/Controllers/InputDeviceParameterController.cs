@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using ClosedXML.Excel;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplication.Models;
@@ -117,7 +120,35 @@ namespace WebApplication.Controllers
 
             return new OkObjectResult(ReturnOk(result));
         }
-    }
+        [HttpPost("ImportExcel")]
+        
+        public virtual IActionResult Import(IFormFile files)
+        {
 
+            //byte[] fileinbytes = Convert.FromBase64String(files.FileName.Data.Substring(temp.Data.IndexOf("base64,") + 7));
+
+            // var stream = new MemoryStream(files.OpenReadStream);
+         
+            using (var excelWorkbook = new XLWorkbook(files.OpenReadStream()))
+            {
+                var nonEmptyDataRows = excelWorkbook.Worksheet(1).RowsUsed();
+
+                foreach (var dataRow in nonEmptyDataRows)
+                {
+                    //for row number check
+                    if (dataRow.RowNumber() >= 2 && dataRow.RowNumber() <= 20)
+                    {
+                        //to get column # 3's data
+                        var cell = dataRow.Cell(3).Value;
+                    }
+                }
+            }
+            return new OkObjectResult(ReturnOk(null)) ;
+        }
+    }
+    public class Temp
+    {
+        public string Data { get; set; }
+    }
 
 }

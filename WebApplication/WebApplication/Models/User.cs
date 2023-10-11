@@ -16,8 +16,9 @@ namespace WebApplication.Models
         public string Language { get; set; }
 
         public DateTime SessionExpires { get; set; }
-        
 
+        public string PasswordNotMahoa { get; set; }
+        
         public List<string> Permissions { get; set; }
     }
 }
