@@ -120,31 +120,7 @@ namespace WebApplication.Controllers
 
             return new OkObjectResult(ReturnOk(result));
         }
-        [HttpPost("ImportExcel")]
         
-        public virtual IActionResult Import(IFormFile files)
-        {
-
-            //byte[] fileinbytes = Convert.FromBase64String(files.FileName.Data.Substring(temp.Data.IndexOf("base64,") + 7));
-
-            // var stream = new MemoryStream(files.OpenReadStream);
-         
-            using (var excelWorkbook = new XLWorkbook(files.OpenReadStream()))
-            {
-                var nonEmptyDataRows = excelWorkbook.Worksheet(1).RowsUsed();
-
-                foreach (var dataRow in nonEmptyDataRows)
-                {
-                    //for row number check
-                    if (dataRow.RowNumber() >= 2 && dataRow.RowNumber() <= 20)
-                    {
-                        //to get column # 3's data
-                        var cell = dataRow.Cell(3).Value;
-                    }
-                }
-            }
-            return new OkObjectResult(ReturnOk(null)) ;
-        }
     }
     public class Temp
     {

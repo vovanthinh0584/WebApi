@@ -47,6 +47,45 @@ namespace WebApplication.Models
         public string ErrorMessage { get; set; }
 
 
+        public string WorkDescription { get; set; }
+
+        public int numofEmployees { get; set; }
+
+        public string OtherSafe { get; set; }
+
+        public string LaborProtection { get; set; }
+
+        public bool Helmet { get; set; }
+
+
+
+        public bool Goggles { get; set; }
+
+        public bool Safetyshoes { get; set; }
+
+        public bool Antinoisedevice { get; set; }
+
+        public bool Soldermask { get; set; }
+
+        public bool Facemask { get; set; }
+
+        public bool Cutmask { get; set; }
+
+
+        public bool Gloves { get; set; }
+
+        public bool Apron { get; set; }
+
+        public bool Chemicalresistantsuit { get; set; }
+
+        public bool
+        Gasmasks
+        { get; set; }
+
+        public bool Seatbelt { get; set; }
+
        
+
+
     }
 }
