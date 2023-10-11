@@ -41,7 +41,22 @@ namespace WebApplication.Controllers
                 DeviceDescription = body.DeviceDescription,
                 StartDate = DateTime.Now,
                 EndDate = DateTime.Now,
-                VendorManager = body.VendorManager
+                VendorManager = body.VendorManager,
+                WorkDescription = body.WorkDescription,
+                numofEmployees = body.numofEmployees,
+                OtherSafe = body.OtherSafe,
+                LaborProtection = body.LaborProtection,
+                Helmet = body.Helmet,
+                Goggles = body.Goggles,
+                Safetyshoes = body.Safetyshoes,
+                Soldermask = body.Soldermask,
+                Facemask = body.Facemask,
+                Cutmask = body.Cutmask,
+                Gloves = body.Gloves,
+                Apron = body.Apron,
+                Chemicalresistantsuit = body.Chemicalresistantsuit,
+                Gasmasks = body.Gasmasks,
+                Antinoisedevice = body.Antinoisedevice
             };
             try
             {

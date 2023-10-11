@@ -3,51 +3,26 @@
 	<Statement id="QueryVendorManagers">
 		select Distinct A.UserID, UserName
 		from UMS_tblUserAccount A
-		INNER JOIN (
-		SELECT Code
-		FROM SAFVIET_tblDanhSachQuanLy
-		WHERE [Type] = '1'
-		) B  ON B.Code = A.UserID
 		where [Stop] = 0
 	</Statement>
 	<Statement id="QueryProjectManagers">
 		select Distinct A.UserID, UserName
 		from UMS_tblUserAccount A
-		INNER JOIN (
-		SELECT Code
-		FROM SAFVIET_tblDanhSachQuanLy
-		WHERE [Type] = '2'
-		) B  ON B.Code = A.UserID
 		where [Stop] = 0
 	</Statement>
 	<Statement id="QueryZoneManagers">
 		select Distinct A.UserID, UserName
-			from UMS_tblUserAccount A 
-			INNER JOIN (
-							SELECT Code
-							FROM SAFVIET_tblDanhSachQuanLy		
-							WHERE [Type] = '3'				
-							) B  ON B.Code = A.UserID
-			where [Stop] = 0
+		from UMS_tblUserAccount A
+		where [Stop] = 0
 	</Statement>
    <Statement id="QueryZoneManagers">
-		select Distinct A.UserID, UserName
-			from UMS_tblUserAccount A 
-			INNER JOIN (
-							SELECT Code
-							FROM SAFVIET_tblDanhSachQuanLy		
-							WHERE [Type] = '3'				
-							) B  ON B.Code = A.UserID
-			where [Stop] = 0
-	</Statement>
+	   select Distinct A.UserID, UserName
+	   from UMS_tblUserAccount A
+	   where [Stop] = 0
+   </Statement>
 	<Statement id="QuerySaleManagers">
-		 select Distinct A.UserID, UserName
-			from UMS_tblUserAccount A
-			INNER JOIN (
-			SELECT Code
-			FROM SAFVIET_tblDanhSachQuanLy
-			WHERE [Type] = '4'
-			) B  ON B.Code = A.UserID
-			where [Stop] = 0
+		select Distinct A.UserID, UserName
+		from UMS_tblUserAccount A
+		where [Stop] = 0
 	</Statement>
 </Statements>
