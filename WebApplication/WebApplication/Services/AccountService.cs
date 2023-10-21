@@ -82,7 +82,12 @@ namespace WebApplication.Services
             return true;
         }
 
-
+        public IEnumerable<object> GetVersion()
+        {
+            string sql = _dao.GetSqlStatement("GetVersion");
+            IEnumerable<object> versions = _dao.Query<object>(sql, null);
+            return versions;
+        }
     }
     
     

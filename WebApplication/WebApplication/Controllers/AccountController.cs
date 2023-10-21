@@ -23,7 +23,7 @@ namespace WebApplication.Controllers
             _message = Message;
             _accountService = accountService;
         }
- 
+
         [HttpGet("GetCaptionLanguage")]
         public virtual IActionResult GetListLanguages(string formName, string lang)
         {
@@ -35,18 +35,27 @@ namespace WebApplication.Controllers
             var result = _accountService.GetListCaptions("GetListCaptionOfForm", paras);
             return new ObjectResult(ReturnOk(result));
         }
- 
+
         [HttpGet("GetListBussiness")]
         public virtual IActionResult GetListBussiness()
         {
             var result = _accountService.GetListBussiness("GetListBussiness");
             return new ObjectResult(ReturnOk(result));
         }
-   
+
+
+        [HttpGet("GetVersion")]
+        public virtual IActionResult GetVersion()
+        {
+            var result = _accountService.GetVersion();
+            return new ObjectResult(ReturnOk(result));
+        }
+
+
         [HttpPost("login")]
         public virtual IActionResult Login([FromBody] UserDTO user)
         {
-            
+
             var keyIv = (user.UserID + "0000000000000000").Substring(0, 16);
             user.Password = Encrypting.AesDecrypt(user.Password, Encoding.UTF8.GetBytes(keyIv), Encoding.UTF8.GetBytes(keyIv), Encoding.UTF8);
             var result = _accountService.Login("GetUser", user);

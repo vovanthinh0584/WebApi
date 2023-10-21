@@ -9,4 +9,7 @@
 	<Statement id="GetUser">
 		SELECT * FROM UMS_tblUserAccount where UserID =@UserID 
 	</Statement>
+	<Statement id="GetVersion">
+		SELECT VersionMobile FROM SYS_tblVersionInfo
+	</Statement>
 </Statements>
