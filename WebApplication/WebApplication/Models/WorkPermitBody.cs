@@ -84,8 +84,9 @@ namespace WebApplication.Models
 
         public bool Seatbelt { get; set; }
 
-       
+        public string controlmeasures { get; set; }
 
+        public string Hazard { get; set; }
 
     }
 }

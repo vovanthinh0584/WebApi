@@ -56,7 +56,9 @@ namespace WebApplication.Controllers
                 Apron = body.Apron,
                 Chemicalresistantsuit = body.Chemicalresistantsuit,
                 Gasmasks = body.Gasmasks,
-                Antinoisedevice = body.Antinoisedevice
+                Antinoisedevice = body.Antinoisedevice,
+                Hazard = body.Hazard,
+                controlmeasures = body.controlmeasures,
             };
             try
             {
