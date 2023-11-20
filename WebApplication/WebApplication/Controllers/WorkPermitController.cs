@@ -59,6 +59,7 @@ namespace WebApplication.Controllers
                 Antinoisedevice = body.Antinoisedevice,
                 Hazard = body.Hazard,
                 controlmeasures = body.controlmeasures,
+                Area = body.Area,
             };
             try
             {
@@ -141,6 +142,16 @@ namespace WebApplication.Controllers
             var token = HttpContextToKen.GetHttpContextToKen(this.User);
             object paras = new { UserID = token["USERID"] };
             IEnumerable<object> result = this._dao.StatementQuery<object>("QueryVendorManagers", paras);
+
+            return new OkObjectResult(ReturnOk(result));
+        }
+        
+        [HttpGet("GetAreas")]
+        public async Task<IActionResult> GetAreas()
+        {
+            var token = HttpContextToKen.GetHttpContextToKen(this.User);
+            object paras = new { UserID = token["USERID"] };
+            IEnumerable<object> result = this._dao.StatementQuery<object>("QueryAreas", paras);
 
             return new OkObjectResult(ReturnOk(result));
         }

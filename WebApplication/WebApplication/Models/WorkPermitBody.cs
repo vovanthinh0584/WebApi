@@ -19,6 +19,8 @@ namespace WebApplication.Models
 
         public string VendorManager { get; set; }
 
+        public string Area { get; set; }
+
         public string ProjectManager { get; set; }
         
 

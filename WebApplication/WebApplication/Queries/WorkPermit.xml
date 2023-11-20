@@ -25,4 +25,9 @@
 		from UMS_tblUserAccount A
 		where [Stop] = 0
 	</Statement>
+	<Statement id="QueryAreas">
+		SELECT AreaId as Area, AreaName 
+		FROM BS_tblAreaList 
+		WHERE stop = 0
+	</Statement>
 </Statements>

@@ -19,7 +19,7 @@
 	<Statement id="GetSysAdmin">
 		SELECT UserName
 		from UMS_tblUserAccount
-		where UserID = 'HUAN'
+		where UserID = 'DINHHUAN'
 	</Statement>
 	<Statement id="GetListManagement">
 		SELECT UserID,UserName
