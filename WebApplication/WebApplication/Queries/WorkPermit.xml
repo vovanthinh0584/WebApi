@@ -6,28 +6,20 @@
 		where [Stop] = 0
 	</Statement>
 	<Statement id="QueryProjectManagers">
-		select Distinct A.UserID, UserName
-		from UMS_tblUserAccount A
-		where [Stop] = 0
+		SELECT Code as UserID, Name as  UserName FROM SAFVIET_tblDanhSachQuanLy WHERE IsQuanLyDuAn = 1
 	</Statement>
 	<Statement id="QueryZoneManagers">
-		select Distinct A.UserID, UserName
-		from UMS_tblUserAccount A
-		where [Stop] = 0
+		SELECT Code as UserID, Name  as  UserName FROM SAFVIET_tblDanhSachQuanLy WHERE IsQuanLyKhuVuc = 1
 	</Statement>
-   <Statement id="QueryZoneManagers">
-	   select Distinct A.UserID, UserName
-	   from UMS_tblUserAccount A
-	   where [Stop] = 0
-   </Statement>
+   
 	<Statement id="QuerySaleManagers">
-		select Distinct A.UserID, UserName
-		from UMS_tblUserAccount A
-		where [Stop] = 0
+		SELECT Code as UserID, Name as  UserName FROM SAFVIET_tblDanhSachQuanLy WHERE IsQuanLyAnToan = 1
 	</Statement>
 	<Statement id="QueryAreas">
-		SELECT AreaId as Area, AreaName 
-		FROM BS_tblAreaList 
-		WHERE stop = 0
+		SELECT Code as UserID, Name as  UserName FROM SAFVIET_tblDanhSachQuanLy WHERE IsQuanLyKhuVuc = 1
 	</Statement>
+	<Statement id="GetBoPhans">
+		SELECT MaBoPhan, TenBoPhan FROM SAFVIET_tblbophan
+	</Statement>
+	
 </Statements>

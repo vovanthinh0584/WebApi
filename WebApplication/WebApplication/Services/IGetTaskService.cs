@@ -18,5 +18,9 @@ namespace WebApplication.Services
 
         IEnumerable<TeamDTO> QueryTeams();
         IEnumerable<WorkerDTO> QueryWorkers();
+
+        IEnumerable<TypeListDTO> GetTypeList();
+
+        DataTable GetWorkTypes(string statementSql, IDictionary<string, object> param);
     }
 }

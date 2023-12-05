@@ -12,7 +12,7 @@ namespace WebApplication.Models
         public static string Bearer = "Bearer ";
         public static string Authorization = "Authorization";
         public static string YL = "YL";
-        public static int TOKEN_EXPIRATION = 1260;
+        public static int TOKEN_EXPIRATION = 5000;
         public static string exp = "exp";
         public static string KTC = "KTC";
         public static string TRUE = "1";

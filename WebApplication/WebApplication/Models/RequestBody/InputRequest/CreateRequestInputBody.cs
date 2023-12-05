@@ -32,8 +32,8 @@ namespace WebApplication.Models.RequestBody.InputRequest
         public string MTNRequestNum { get; set; }
 
         public string NotApprovalDescription { get; set; }
-        
 
+        public string MaBoPhan { get; set; }
 
     }
 }

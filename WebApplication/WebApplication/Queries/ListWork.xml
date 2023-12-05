@@ -3,4 +3,8 @@
 	<Statement id="QueryShifts">
 		select ShiftID, ShiftName from FA_tblShifts
 	</Statement>
+	<Statement id="GetTypeList">
+		SELECT TypeId  as Classification, TypeName as ClassificationName FROM BS_tblTypeList
+	</Statement>
+	
 </Statements>

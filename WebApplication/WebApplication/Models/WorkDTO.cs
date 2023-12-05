@@ -18,6 +18,11 @@ namespace WebApplication.Models
     {
         public string TeamGroupId { get; set; }
     }
+    public class TypeListDTO
+    {
+        public string Classification { get; set; }
+        public string ClassificationName { get; set; }
+    }
     public class NotificationDTO
     {
         public Int64 Id { get; set; }

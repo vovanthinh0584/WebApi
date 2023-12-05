@@ -90,5 +90,18 @@ namespace WebApplication.Models
 
         public string Hazard { get; set; }
 
+        public string MaBoPhan { get; set; }
+
+       
+      
+
+    }
+    public class WorkPermitEditEnable
+    {
+
+        public string WorkPermitNo { get; set; }
+
+        
+
     }
 }

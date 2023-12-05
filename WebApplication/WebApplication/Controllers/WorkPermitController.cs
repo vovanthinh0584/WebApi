@@ -60,6 +60,8 @@ namespace WebApplication.Controllers
                 Hazard = body.Hazard,
                 controlmeasures = body.controlmeasures,
                 Area = body.Area,
+                BoPhan = body.MaBoPhan,
+                WorkPermitNoInput =body.WorkPermitNo
             };
             try
             {
@@ -204,8 +206,8 @@ namespace WebApplication.Controllers
             var result = this._dao.ExecuteSP("SAFVIET_frmWorkPermit_Mobile_Delete_AttachmentFile", param);
             return new OkObjectResult(ReturnOk(result));
         }
-        [HttpPost("EditWorkPermitImage")]
-        public async Task<IActionResult> EditWorkPermitImage([FromBody] WorkPermitBody body)
+        [HttpPost("GetEditWorkPermitImage")]
+        public async Task<IActionResult> GetEditWorkPermitImage([FromBody] WorkPermitBody body)
         {
             var token = HttpContextToKen.GetHttpContextToKen(this.User);
             object paras = new
@@ -252,6 +254,27 @@ namespace WebApplication.Controllers
             object param = new { BUID = token["BUID"], Lang = token["LANG"], WorkPermitNo = body.WorkPermitNo, @UserId = token["USERID"], ErrorMessage = string.Empty };
             var result = this._dao.ExecuteSP("SAFVIET_frmWorkPermit_Mobile_GiaHan", param);
             return new OkObjectResult(ReturnOk(param));
+        }
+        [HttpPost("GetEditEnabled")]
+        public async Task<IActionResult> GetEditEnabled([FromBody] WorkPermitEditEnable body)
+        {
+            IDictionary<string, object> param = new Dictionary<string, object>();
+            var token = HttpContextToKen.GetHttpContextToKen(this.User);
+            param["UserId"] = token["USERID"];
+            param["BUID"] = token["BUID"];
+            param["Lang"] = token["LANG"];
+            param["WorkPermitNo"] = body.WorkPermitNo;
+            var result = this._dao.ExecuteSP("FA_tblWorkPermit_EnabledControl_Mobile", param);
+            return new OkObjectResult(ReturnOk(result));
+        }
+        [HttpPost("GetBoPhans")]
+        public async Task<IActionResult> GetBoPhans()
+        {
+            var token = HttpContextToKen.GetHttpContextToKen(this.User);
+            object paras = new { UserID = token["USERID"] };
+            IEnumerable<object> result = this._dao.StatementQuery<object>("GetBoPhans", paras);
+
+            return new OkObjectResult(ReturnOk(result));
         }
     }
 }

@@ -79,7 +79,7 @@ namespace WebApplication.Controllers
                     BUID = token["BUID"].ToString(),
                     Lang = token["LANG"].ToString(),
                     UserId = token["USERID"].ToString(),
-                    Id = body.Id
+                    Id = stringId
                 };
                 var result1 = _dao.ExecuteSP("SAFVIET_tblNotifications_Mobile_Update", paraNotification);
             }    

@@ -68,5 +68,17 @@ namespace WebApplication.Services
             IEnumerable<WorkerDTO> result = _dao.Query<WorkerDTO>(sql, null);
             return result;
         }
+        public IEnumerable<TypeListDTO> GetTypeList()
+        {
+            string sql = _dao.GetSqlStatement("GetTypeList");
+            IEnumerable<TypeListDTO> result = _dao.Query<TypeListDTO>(sql, null);
+            return result;
+        }
+        public DataTable GetWorkTypes(string statementSql, IDictionary<string, object> param)
+        {
+            var result = _dao.ExecuteSP(statementSql, param);
+            return result;
+        }
+        
     }
 }

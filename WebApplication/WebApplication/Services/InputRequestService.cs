@@ -38,7 +38,9 @@ namespace WebApplication.Services
                 Housekeeping = body.Housekeeping,
                 Others = body.Others,
                 MTNRequestNum= string.Empty,
-                ErrorMessage= string.Empty
+                ErrorMessage= string.Empty,
+                BoPhan =body.MaBoPhan,
+                MTNRequestNumInput = body.MTNRequestNum
 
             };
             try

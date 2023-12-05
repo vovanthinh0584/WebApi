@@ -25,15 +25,22 @@ namespace WebApplication.Controllers
             var token = HttpContextToKen.GetHttpContextToKen(this.User);
             IDictionary<string, object> param = new Dictionary<string, object>();
             param["UserId"] = token["USERID"];
-            param["BUID"] = token["BUID"];
-            param["Lang"] = token["LANG"];
-            param["FilterType"] = body.FilterType;
-            param["FilterDescription"] = body.FilterDescription;
-            var result = getTaskService.QueryFilterWorks("SAFVIET_tblWorks_Mobile_Filter", param);
+            param["ColField"] = "worktype";
+            param["ValSearch"] = body.FilterType;
+            var result = getTaskService.QueryFilterWorks("SAFVIET_tblWorks_procGetAll_Mobile", param);
             return new OkObjectResult(ReturnOk(result));
 
         }
-      
+        [HttpPost("GetTypeList")]
+        public virtual IActionResult GetTypeList()
+        {
+            IDictionary<string, object> param = new Dictionary<string, object>();
+            var result = getTaskService.GetTypeList();
+            return new OkObjectResult(ReturnOk(result));
+
+        }
+
+
         [HttpPost("AssignWork")]
         public virtual IActionResult AssignWork(CreateGetTaskBody body)
         {
@@ -84,6 +91,19 @@ namespace WebApplication.Controllers
         public virtual IActionResult QueryTeams()
         {
             IEnumerable<TeamDTO> result = this.getTaskService.QueryTeams();
+
+            return new OkObjectResult(ReturnOk(result));
+        }
+        [HttpPost("GetWorkTypes")]
+        public virtual IActionResult GetWorkTypes()
+        {
+            var token = HttpContextToKen.GetHttpContextToKen(this.User);
+            IDictionary<string, object> param = new Dictionary<string, object>();
+            param["UserId"] = token["USERID"];
+            param["BUID"] = token["BUID"];
+            param["Field"] = "worktype";
+            
+            var result = getTaskService.GetWorkTypes("SAFVIET_frmWorks_proLoadComboxSearch", param);
 
             return new OkObjectResult(ReturnOk(result));
         }
